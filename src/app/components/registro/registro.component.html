@@ -1,0 +1,74 @@
+<app-nav></app-nav  >
+<div class="col-md-3 mx-auto mt-2">
+    <form>
+        <div class="card mb-3 text-center" style="max-width: 20rem; background-color: #c0c9dbbb">
+                <div class="card-body">
+                    <img class="card-img-top"src="https://i.ibb.co/9N0MgPB/logo.png " alt="casanova-renta-de-autos-24">
+                </div>
+                <form #formguardar="ngForm" (ngSubmit)="addnewuser();guardarregistro(formguardar)">
+                    
+                      <div class="card-header form-group text-white">
+                        <p><strong># Empleado</strong></p>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" style="background-color: #f16821; color: white"><i class="fa fa-address-card-o"></i></span>
+                          </div>
+                          <input type="text" name="numeroempleado" [(ngModel)]="empleado" [ngModelOptions]="{standalone:true}" class="form-control" placeholder="  Juan ">
+                        </div> 
+                        <p><strong>Nombre</strong></p>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" style="background-color: #f16821; color: white"><i class="fa fa-User"></i></span>
+                          </div>
+                          <input type="text" name="nombre" [(ngModel)]="nombre" [ngModelOptions]="{standalone:true}" class="form-control" placeholder="  Juan ">
+                        </div>
+                        <p><strong>Apellido Paterno</strong></p>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" style="background-color: #f16821; color: white"><i class="fa fa-user"></i></span>
+                          </div>
+                          <input type="text" name="apaterno" [(ngModel)]="apaterno" [ngModelOptions]="{standalone:true}"  class="form-control" placeholder="   Perez ">
+                        </div>
+                        <p><strong>Apellido Materno</strong></p>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" style="background-color: #f16821; color: white"><i class="fa fa-user"></i></span>
+                          </div>
+                          <input type="text" name="amaterno" [(ngModel)]="amaterno" [ngModelOptions]="{standalone:true}"  class="form-control" placeholder="  Juan Perez Sanchez">
+                        </div>
+                        <p><strong>Correo Electrónico</strong></p>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" style="background-color: #f16821; color: white"><i class="fa fa-envelope"></i></span>
+                          </div>
+                          <input type="email" name="email" [(ngModel)]="email" [ngModelOptions]="{standalone:true}" class="form-control" placeholder="tunombre@casanovarentacar.mx">
+                        </div>
+                        <p><strong>Contraseña</strong></p>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" style="background-color: #f16821; color: white"><i class="fa fa-key"></i></span>
+                          </div>
+                          <input type ="password" name="password" [(ngModel)]="pass" [ngModelOptions]="{standalone:true}" class="form-control text-center">
+                        </div>
+                        <p><strong>Clinica</strong></p>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" style="background-color: #f16821; color: white"><i class="fa fa-hospital-o"></i></span>
+                          </div>
+                          <input type="text" name="clinica" [(ngModel)]="clinica" [ngModelOptions]="{standalone:true}"  class="form-control" placeholder="#Clinica">
+                        </div>
+                        <p><strong>Cedula Profesional</strong></p>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" style="background-color: #f16821; color: white"><i class="fa fa-id-badge"></i></span>
+                          </div>
+                          <input type="text" name="cedula" [(ngModel)]="cedula" [ngModelOptions]="{standalone:true}"  class="form-control"  placeholder="982130922">
+                        </div>
+                      </div>
+                    <button type="submit" value="Guardar" class="btn btn-warning text-center btn-block"><i class="fa fa-sign-in" class="fa-2x"></i><h6><strong>Registrar</strong></h6></button>
+                </form>
+        </div>
+    </form>
+</div>
+<div class="col-md-6 mx-auto mt-2">
+</div>

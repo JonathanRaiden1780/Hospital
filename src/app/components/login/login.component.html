@@ -1,0 +1,42 @@
+<app-nav></app-nav>
+<br><br>
+<div class="col-md-6 mx-auto mt-2">
+ <div class="row">
+     <div class="col-md-6">
+       <div class="card text-center" style="background-color: #c0c9dbbb">
+         <div class="card-body">
+             <img class="card-img-top" src="https://i.ibb.co/9N0MgPB/logo.png " alt="casanovaSEVS">
+         </div>
+         <form (submit)="onSubmitLogin()">
+         <div class="card-header form-group text-white">
+             <label for="CorreoElectronico"><strong>Correo Electronico:</strong></label>
+             <div class="input-group mb-3 text-center">
+               <div class="input-group-prepend">
+                 <span class="input-group-text" style="background-color: #f16821; color: white"><i class="fa fa-envelope"></i></span>
+               </div>
+               <input type="email" name="email" [(ngModel)]="email" [ngModelOptions]="{standalone:true}" class="form-control" placeholder="nombre.apellido@casanovarentacar.mx">
+             </div>
+             <label for="password"><strong>Contraseña:</strong></label>
+             <div class="input-group mb-3">
+               <div class="input-group-prepend">
+                 <span class="input-group-text" style="background-color: #f16821; color: white"><i class="fa fa-key"></i></span>
+               </div>
+               <input type ="password" name="password" [(ngModel)]="password" [ngModelOptions]="{standalone:true}" class="form-control">
+             </div>
+           </div>
+           <button type="submit" class="btn btn-warning text-center btn-block"><i class="fa fa-sign-in" class="fa-2x"></i><h6> Ingresar</h6></button>
+         </form>
+       </div>
+     </div>
+     <div class="col-md-6" hidden="true">
+       <div class="card" style="background-color: #2a206f">
+         <div class="card-body text-white">
+           <strong>Funciones Abiertas</strong>
+         </div>
+         <div class="card-header">
+           <button type="button" name="" id="" class="btn btn-warning btn-lg btn-block" [routerLink]="['/home']" routerLinkActive="router-link-active"><i class="fa fa-tasks" aria-hidden="true"></i><strong> Realizar encuestas</strong></button>
+         </div>
+       </div>
+     </div>
+ </div>
+</div>
