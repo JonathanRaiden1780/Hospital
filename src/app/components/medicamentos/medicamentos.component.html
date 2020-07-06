@@ -1,2 +1,17 @@
 <app-nav></app-nav>
-<ng2-smart-table (createConfirm)="addData($event)"  (custom)="onCustomAction($event)" (editConfirm)="editData($event)" (deleteConfirm)="deleteData($event)" [settings]="tableset" [source]="source"></ng2-smart-table>
+<ng2-smart-table (rowSelect)="onUserRowSelect($event)" (createConfirm)="addData($event)"  (custom)="onCustomAction($event)" (editConfirm)="editData($event)" (deleteConfirm)="deleteData($event)" [settings]="tableset" [source]="source"></ng2-smart-table>
+
+        <table mdbTable hover="true" style="margin-left: 90%;">
+            <thead>
+              <tr>
+                <th *ngFor="let head of headElements" scope="col">{{head}} </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr mdbTableCol *ngFor="let el of elements">
+                <th scope="row">{{el.busqueda}}</th>
+                <td>{{el.existencia}}</td>
+              </tr>
+            </tbody>
+          </table>        
+   

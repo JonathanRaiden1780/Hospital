@@ -1,2 +1,2 @@
-export interface Paciente {
+export interface PacienteInterface {
 }

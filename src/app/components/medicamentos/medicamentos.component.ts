@@ -10,7 +10,6 @@ import { InventarioService} from '../../services/inventario.service'
   styleUrls: ['./medicamentos.component.css']
 })
 export class MedicamentosComponent implements OnInit {
-
   settings = {
     columns:{},
     actions:{
@@ -43,16 +42,21 @@ export class MedicamentosComponent implements OnInit {
     },
     mode: 'inline'
   }
+  
   tableset:any = {...this.settings}
   source: LocalDataSource;
+  acumulador: number
+  filtros: string
+  source2: MedicamentosInterface[];
   constructor( 
     public medservice: InventarioService
     ){
-      
+      this.acumulador = 0
    }
    addData(event){
       this.medservice.addmed(event.newData)
-       event.confirm.resolve() 
+       event.confirm.resolve()
+       this.medservice.getAll().subscribe(x=> this.source = x as any)  
    }
   
    editData(event){
@@ -60,6 +64,7 @@ export class MedicamentosComponent implements OnInit {
     {
       this.medservice.updatemed(event.data,event.newData)   
         event.confirm.resolve();
+        this.medservice.getAll().subscribe(x=> this.source = x as any) 
     }
     else{
       event.confirm.reject();
@@ -70,6 +75,7 @@ export class MedicamentosComponent implements OnInit {
     {
      this.medservice.deletemed(event.data)
       event.confirm.resolve();
+      this.medservice.getAll().subscribe(x=> this.source = x as any) 
     }
     
   }
@@ -91,9 +97,9 @@ export class MedicamentosComponent implements OnInit {
     var e = prompt('Cuantas unidades salen ?');
     var t:number = +e;
     this.medservice.entrada(event, t);
-
   }
   ngOnInit(): void {
+
     this.medservice.getAll().subscribe(x=> this.source = x as any) 
     this.tableset.columns = {
       nombre:{
@@ -149,7 +155,40 @@ export class MedicamentosComponent implements OnInit {
       }
     
     }
+    
   } 
+  
+  onUserRowSelect(event){
+    this.acumulador = 0;
+    var x = event.source.filteredAndSorted
+    console.log(event)
+    if(x.length >= 1){
+      if(x.length==1){
+        this.elements = [
+          {existencia: x[0].existencia }
+        ]
+      }
+      else{
+        console.log('mayor a 1')
+        for(var i = 0 ; i < x.length; i++){
+          var s = x[i].existencia
+          this.acumulador = s + this.acumulador;
+          this.elements = [
+            {existencia: this.acumulador }
+          ]
+        }
+      }
+    }
+    else{
+      console.log('no se ')
+    }
+    
+  }
+  elements: any = [
+    {busqueda: '',existencia:0  }
+  ];
+
+  headElements = [' ', 'existencia'];
 }
 
 @Component({
@@ -158,7 +197,7 @@ export class MedicamentosComponent implements OnInit {
     <input type="string"
            [(ngModel)]="cell.newValue"
            [name]="cell.getId()"
-           [placeholder]="750000000"
+           [placeholder]="912301"
            [disabled]="!cell.isEditable()"
            (click)="onClick.emit($event)"
            (keydown.enter)="onEdited.emit($event)"
