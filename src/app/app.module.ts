@@ -10,7 +10,7 @@ import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
 import { Page404Component } from './components/page404/page404.component';
 import { PacientesComponent } from './components/pacientes/pacientes.component';
-import { MedicamentosComponent } from './components/medicamentos/medicamentos.component';
+import { MedicamentosComponent, DateEditorComponent, PrecioEditorComponent, StockEditorComponent, skuEditorComponent } from './components/medicamentos/medicamentos.component';
 import { RecetaComponent } from './components/receta/receta.component';
 import { CitasComponent } from './components/citas/citas.component';
 
@@ -18,6 +18,13 @@ import { CitasComponent } from './components/citas/citas.component';
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 import {environment} from '../environments/environment';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { InventarioService } from './services/inventario.service';
+import { AuthGuard } from './guard/auth.guard';
+import { AuthService } from './services/auth.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NbThemeModule, NbLayoutModule, NbIconModule } from '@nebular/theme';
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 
 
@@ -32,16 +39,31 @@ import {environment} from '../environments/environment';
     PacientesComponent,
     MedicamentosComponent,
     RecetaComponent,
-    CitasComponent
+    CitasComponent,
+    DateEditorComponent,
+    PrecioEditorComponent,
+    StockEditorComponent,
+    skuEditorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    Ng2SmartTableModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    NbThemeModule.forRoot({ name: 'dark' }),
+    NbLayoutModule,
+    NbEvaIconsModule,
+    NbIconModule
   ],
-  providers: [],
+  providers: [
+    InventarioService,
+    AuthGuard,
+    AuthService
+  ],
+  entryComponents:[DateEditorComponent,PrecioEditorComponent,StockEditorComponent,skuEditorComponent ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

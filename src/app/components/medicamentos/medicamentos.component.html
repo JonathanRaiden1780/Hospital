@@ -1,1 +1,2 @@
-<p>medicamentos works!</p>
+<app-nav></app-nav>
+<ng2-smart-table (createConfirm)="addData($event)"  (custom)="onCustomAction($event)" (editConfirm)="editData($event)" (deleteConfirm)="deleteData($event)" [settings]="tableset" [source]="source"></ng2-smart-table>

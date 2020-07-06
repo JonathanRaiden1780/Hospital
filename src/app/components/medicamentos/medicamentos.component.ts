@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
+import { MedicamentosInterface } from "../../interfaces/medicamentos";
+import { Ng2SmartTableComponent, LocalDataSource, DefaultEditor } from "ng2-smart-table";
+import { InventarioService} from '../../services/inventario.service'
+
 
 @Component({
   selector: 'app-medicamentos',
@@ -7,9 +11,223 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MedicamentosComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  settings = {
+    columns:{},
+    actions:{
+      custom:[
+        {
+      name: 'entrada',
+      title: '<i class="fas fa-dolly" title="entrada"></i>'
+    },
+    {
+      name: 'salida',
+      title: '<i class="fas fa-shipping-fast" title="sailda"></i><br></br>'
+    }
+      ]
+    },
+    add:{
+      confirmCreate:true,
+      addButtonContent:'<i class="fa fa-plus" style="font-size:32px"></i>',
+      createButtonContent:'<i class="fa fa-check" style="font-size:32px">add</i><br></br>',
+      cancelButtonContent:'<i class="fa fa-times" style="font-size:32px">cancel</i>'
+    },
+    edit:{
+      editButtonContent: '<i class="fa fa-pen" style="font-size:32px"></i>',
+      saveButtonContent: '<i class="fa fa-check" style="font-size:32px">add</i>',
+      cancelButtonContent: '<i class="fa fa-times" style="font-size:32px">cancel</i>',
+      confirmSave:true
+    },
+    delete:{
+      confirmDelete:true,
+      deleteButtonContent: '<i class="far fa-trash-alt" title="delete"></i>'
+    },
+    mode: 'inline'
   }
+  tableset:any = {...this.settings}
+  source: LocalDataSource;
+  constructor( 
+    public medservice: InventarioService
+    ){
+      
+   }
+   addData(event){
+      this.medservice.addmed(event.newData)
+       event.confirm.resolve() 
+   }
+  
+   editData(event){
+    if ( confirm('Seguro que desea editar el medicamento: ' + event.data.nombre))
+    {
+      this.medservice.updatemed(event.data,event.newData)   
+        event.confirm.resolve();
+    }
+    else{
+      event.confirm.reject();
+    }
+   }
+   deleteData(event){
+    if (confirm('Seguro que desea borrar el medicamento: '+event.data.nombre+' ?'))
+    {
+     this.medservice.deletemed(event.data)
+      event.confirm.resolve();
+    }
+    
+  }
+  onCustomAction(event) {
+    switch ( event.action) {
+    case 'entrada':
+    this.entradas(event.data);
+    break;
+    case 'salida':
+    this.salidas(event.data);
+    }
+  }
+  entradas(event){
+    var e = prompt('Cuantas unidades ingresa ?');
+    var t:number = +e;
+    this.medservice.entrada(event, t);
+  }
+  salidas(event){
+    var e = prompt('Cuantas unidades salen ?');
+    var t:number = +e;
+    this.medservice.entrada(event, t);
 
+  }
+  ngOnInit(): void {
+    this.medservice.getAll().subscribe(x=> this.source = x as any) 
+    this.tableset.columns = {
+      nombre:{
+        title:'Nombre Medicamento',
+        type: 'string',
+        placeholder:'Tempra'
+      },
+      compuesto:{
+        title:'Compuesto',
+        type: 'string',
+        placeholder:'Penicilina/Paracetamol/etc'
+      },
+      presentacion:{
+        title:'mg/ml',
+        type:'string',
+        
+      },
+      caducidad:{
+        title:'Fecha de Caducidad',
+        type: 'date',
+        addable: true,
+        editor:{
+          type:'custom',
+          component: DateEditorComponent
+        }
+      },
+      precio:{
+        title:'Precio',
+        type:'string',
+        addable: true,
+        editor:{
+          type:'custom',
+          component: PrecioEditorComponent
+        }
+      },
+      lote:{
+        title:'lote',
+        type:'string',
+        addable: true,
+        editor:{
+          type:'custom',
+          component: skuEditorComponent
+        }
+      },
+      existencia:{
+        title:'Stock',
+        type:'string',
+        addable: true,
+        editor:{
+          type:'custom',
+          component: StockEditorComponent
+        }
+      }
+    
+    }
+  } 
+}
+
+@Component({
+  selector: 'input-editor',
+  template: `
+    <input type="string"
+           [(ngModel)]="cell.newValue"
+           [name]="cell.getId()"
+           [placeholder]="750000000"
+           [disabled]="!cell.isEditable()"
+           (click)="onClick.emit($event)"
+           (keydown.enter)="onEdited.emit($event)"
+           (keydown.esc)="onStopEditing.emit()">
+    `,
+})
+export class skuEditorComponent extends DefaultEditor {
+  constructor() {
+    super();
+  }
+}
+@Component({
+  selector: 'input-editor',
+  template: `
+    <input type="number"
+           [(ngModel)]="cell.newValue"
+           [name]="cell.getId()"
+           [placeholder]="10.00"
+           [disabled]="!cell.isEditable()"
+           (click)="onClick.emit($event)"
+           (keydown.enter)="onEdited.emit($event)"
+           (keydown.esc)="onStopEditing.emit()">
+    `,
+})
+export class StockEditorComponent extends DefaultEditor {
+  constructor() {
+    super();
+  }
+}
+
+@Component({
+  selector: 'input-editor',
+  template: `
+     <i class="fas fa-dollar-sign fa-sm">
+    <input type="string"
+           [(ngModel)]="cell.newValue"
+           [name]="cell.getId()"
+           [placeholder]="10.00"
+           [disabled]="!cell.isEditable()"
+           (click)="onClick.emit($event)"
+           (keydown.enter)="onEdited.emit($event)"
+           (keydown.esc)="onStopEditing.emit()"
+           ></i>
+    `,
+})
+export class PrecioEditorComponent extends DefaultEditor {
+  constructor() {
+    super();
+  }
+  
+}
+
+@Component({
+  selector: 'input-editor',
+  template: `
+    <input type="date"
+           [(ngModel)]="cell.newValue"
+           [name]="cell.getId()"
+           [placeholder]="cell.getTitle()"
+           [disabled]="!cell.isEditable()"
+           (click)="onClick.emit($event)"
+           (keydown.enter)="onEdited.emit($event)"
+           (keydown.esc)="onStopEditing.emit()"
+           required ="true">
+    `,
+})
+export class DateEditorComponent extends DefaultEditor {
+  constructor() {
+    super();
+  }
+  
 }
