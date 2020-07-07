@@ -1,79 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { PacienteInterface } from "../../interfaces/paciente";
-import {EntidadInterface } from "../../interfaces/entidad";
-import { _isNumberValue } from '@angular/cdk/coercion';
-
-@Component({
-  selector: 'app-pacientes',
-  templateUrl: './pacientes.component.html',
-  styleUrls: ['./pacientes.component.css']
-})
-export class PacientesComponent implements OnInit {
-
-  constructor(
-    private router: Router,
-    private authservice: AuthService
-  ) { }
-    public email:string;
-    public pass: string;
-    public nombre: string;
-    public apaterno: string;
-    public amaterno: string;
-    public empleado: string;
-    public clinica: string;
-    public cedula: string;
-
-    entidadesi: EntidadInterface;
-    curp:string
-    fechan:string
-    entidad:string
-    sexo:string;
-    norigen:string
-    edo:string;
-    municipio:string
-    cp:string
-    folio: string;
-    
-  ngOnInit() {
-  }
-
-Registro(x){
-console.log(x, 
-this.curp)//HUVJ951027HDRFZN04
- var año = this.curp.slice(4,6)
-var mes = this.curp.slice(6,8)
-var dia = this.curp.slice(8,10)
-var mile = this.curp.slice(-2,-1)
-var ent = this.curp.slice(-7,-5).toUpperCase();
-var s = this.curp.slice(-8,-7).toUpperCase();
-var t = this.data.entidades.find( entidad => entidad.ABREVIATURA === ent)
-this.entidad = t.ENTIDAD_FEDERATIVA;
-this.sexo = s;
-this.norigen = 'Mexicana'
-//this.entidades.entidad
-console.log(ent)
-if(_isNumberValue(mile))
-this.fechan =  '19'+año +'-'+mes+'-'+dia
-
-}
-onGuardar(x){
-  console.log(x)
-}
-  addnewuser(){
-     this.authservice.registeruser(this.email,this.pass)
-    .then((res)=>{
-      this.router.navigate(['/login'])
-    }).catch(err=> console.log('err',err.message)); 
-  }
-  guardarregistro({value}: {value: PacienteInterface}){
-    
-    //this.authservice.addregistro(value);
-  }
-   data={
-  entidades: [
+export class EntidadInterface {
+   constructor( public data = {entidades: [
     {
         "CATALOG_KEY": "01",
         "ENTIDAD_FEDERATIVA": "AGUASCALIENTES",
@@ -254,6 +180,10 @@ onGuardar(x){
         "ENTIDAD_FEDERATIVA": "NO ESPECIFICADO",
         "ABREVIATURA": "NE"
     }
-    ]
-  } 
+]
+
+}
+)
+   {
+   }
 }

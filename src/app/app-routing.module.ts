@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { MedicamentosComponent } from './components/medicamentos/medicamentos.component';
 import { PacientesComponent } from './components/pacientes/pacientes.component';
+import { CitasComponent } from './components/citas/citas.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'register', component: RegistroComponent},
   {path: 'inventario', component: MedicamentosComponent},
   {path: 'pacientes', component: PacientesComponent},
+  {path: 'citas', component: CitasComponent},
 
 ];
 

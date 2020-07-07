@@ -1,440 +1,101 @@
 <app-nav></app-nav  >
     
 <!-- Contenido -->
-<div class="card col-md-2 mt-3 ml-1 text-white text-center form-inline" style="background-color: #1a3263"><i class="faCarCrash" class="fa-2x"></i><strong><h2>SEVS - Taller</h2></strong></div>
+<div class="card col-md-2 mt-3 ml-1 text-white text-center form-inline" style="background-color: #1a3263"><i class="faCarCrash" class="fa-2x"></i><strong><h2>Pacientes</h2></strong></div>
 
 <!-- Llenado rapido-->
-<div class="card col-md-2 mt-3 ml-1 text-white text-center form-inline" style="background-color: #1a3263"><strong><h2>Llenado rapido</h2></strong></div>
+<div class="card col-md-5 mt-3 ml-1 text-white text-center form-inline" style="background-color: #1a3263"><strong><h2>Registro de Pacientes</h2></strong></div>
 <div class="card col-md-6 offset-md-3 mt-2">
 <form #formGuardar="ngForm" (ngSubmit)="Registro(formGuardar)">
     <div class="form-group">
-      <h4><strong>Folio:</strong></h4>
-      <input type="text" class="form-control text-center" pattern="[A-Z]*" style="text-transform: uppercase; font-size: 1rem " name="id" [(ngModel)]="idenc" #FolioEncuesta="ngModel" id="FolioEncuesta" aria-describedby="FolioEncuesta" placeholder="VI1234">
+      <h4><strong>CURP</strong></h4>
+      <input type="text" class="form-control text-center" pattern="[A-Z]*" style="text-transform: uppercase; font-size: 1rem " name="curps" [(ngModel)]="curp" #CURPs="ngModel" id="curp" aria-describedby="CURP" placeholder="VI1234">
     </div>
-    <h4><strong>Tipo de Servicio:</strong></h4><br>
-    <div class="text-center">
-        <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="tipo" id="OptionExpress1" [(ngModel)]="opcion" #OptionExpress1="ngModel" value="express">
-            <label class="form-check-label" for="OptionExpress1" style="font-size: 1rem"><i class="faShippingFast"></i><strong> Express</strong></label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="tipo" id="OptionReparacion1" [(ngModel)]="opcion" #OptionReparacion1="ngModel" value="reparacion">
-            <label class="form-check-label" for="OptionReparacion1" style="font-size: 1rem"><i class="faCarCrash"></i><strong> Reparación</strong></label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="tipo" id="OptionTramite1" [(ngModel)]="opcion" #OptionTramite1="ngModel" value="tramite">
-            <label class="form-check-label" for="OptionTramite1" style="font-size: 1rem"><i class="faNotesMedical"></i><strong> Tramite</strong></label>
-          </div>
-    </div>
+   
       <hr>
     <button type="submit" class="btn btn-primary btn-block mb-2" style="font-size: 1rem" value="Guardar"><strong>Ingresar</strong></button>
   </form>
 </div>
 
 <!-- Llenado completo -->
-<div class="card col-md-2 mt-3 ml-1 text-white text-center form-inline" style="background-color: #1a3263"><strong><h2>Llenado completo</h2></strong></div>
-<div class="card col-md-6 offset-md-3 mt-2">
+<div class="card col-md-7 mt-3 ml-1 text-white text-center form-inline" style="background-color: #1a3263"><strong><h2>Informacion Detallada</h2></strong></div>
+<div class="card col-md-10 offset-md-1 mt-2">
 <form #formGuardar="ngForm" (ngSubmit)="onGuardar(formGuardar)">
     <div class="form-group mt-3">
-      <h4><strong>Folio:</strong></h4>
-      <input type="text" class="form-control text-center" style="font-size: 1rem" id="FolioEncuesta" aria-describedby="FolioEncuesta" placeholder="VI1234">
+      <h4><strong>FOLIO INTERNO</strong></h4>
+      <input type="text" class="form-control text-center" style="font-size: 1rem" id="folio" aria-describedby="FOLIO"  placeholder="XXXX000000XXXXXX00" [(ngModel)]="folio" #FOLIOs="ngModel">
     </div>
     
 <!-- fomrmulario de Servicio -->
-    <h4><strong>Datos del servicio:</strong></h4><hr>
+    <h4><strong>REGISTRO</strong></h4><hr>
     <!-- Express -->
     <div class="card" >
         <div class="card-header">
-            <h4><i class="faShippingFast"></i><strong>Express</strong></h4>
+            <h4><i class="faShippingFast"></i><strong>DATOS GENERALES</strong></h4>
         </div>
         <div class="card-body text-center">
-          <h5><strong>Vehiculo</strong></h5> <!-- Vehiculo -->
-          <hr>
           <div class="form-row ">
             <div class="col-auto mx-auto">
-              <label class="sr-only" for="inlineFormInputGroup">Placa</label>
+              <label  for="inlineFormInputGroup">FECHA DE NACIMIENTO</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text"><i class="faFileInvoice"></i></div>
                   </div>
-                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="PLACA" name="placa" [(ngModel)]="placa" #placas="ngModel"> 
+                <input type="date" class="form-control" id="inlineFormInputGroup" value="{fechan}" placeholder="XX/xX/XX" name="fecha" [(ngModel)]="fechan" #fechanacimiento="ngModel"> 
               </div>
-              <label class="sr-only" for="inlineFormInputGroup">Vehiculo</label>
+              <label  for="inlineFormInputGroup">ENTIDAD NACIMIENTO</label>
               <div class="input-group mb-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text"><i class="faCar"></i></div>
                   </div>
-                  <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="VEHICULO" name="vehiculo" [(ngModel)]="vehiculo" #vehiculos="ngModel">
+                  <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="ENTIDAD" name="entidadn" [(ngModel)]="entidad" #entidadn="ngModel">
+                </div>
+                <label  for="inlineFormInputGroup">NACIONALIDAD ORIGEN</label>
+              <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="faCar"></i></div>
+                  </div>
+                  <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Nacionalidad" name="norigenn" [(ngModel)]="norigen" #nacionalidad="ngModel">
                 </div>
             </div>
-            <div class="col-auto mx-auto">
-                <label class="sr-only" for="inlineFormInputGroup">Marca</label>
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text"><i class="faBrand"></i></div>
-                    </div>
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="MARCA" name="marca" [(ngModel)]="marca" #marcas="ngModel">
-                  </div>
-                  <label class="sr-only" for="inlineFormInputGroup">Combustible</label>
-                  <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text"><i class="faGas"></i></div>
-                      </div>
-                      <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="COMBUSTIBLE" name="combustible" [(ngModel)]="combustible" #combustibles="ngModel">
-                    </div>
-              </div>
                 <div class="col-auto mx-auto">
-                    <label class="sr-only" for="inlineFormInputGroup">Serie</label>
+                    <label  for="inlineFormInputGroup">ESTADO RESIDENCIA</label>
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="faSerial"></i></div>
                       </div>
-                      <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="# SERIE" name="numserie" [(ngModel)]="numserie" #numseries="ngModel">
+                      <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="ESTADO RESIDENCIA" name="edresidencia" [(ngModel)]="edo" #edor="ngModel">
                     </div>
-                    <label class="sr-only" for="inlineFormInputGroup">Kilometraje</label>
+                    <label  for="inlineFormInputGroup">MUNICIPIO</label>
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="faKm"></i></div>
                       </div>
-                      <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="KILOMETRAJE" name="kilometraje" [(ngModel)]="kilometraje" #kilometrajes="ngModel">
+                      <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Municipio" name="municipsio" [(ngModel)]="municipio" #mun="ngModel">
                     </div>
-                    <label class="sr-only" for="inlineFormInputGroup">Año</label>
+                    <label  for="inlineFormInputGroup">CODIGO POSTAL</label>
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="faKm"></i></div>
                       </div>
-                      <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Año" name="año" [(ngModel)]="anio" #anios="ngModel">
+                      <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="CP" name="cps" [(ngModel)]="cp" #codigop="ngModel">
                     </div>
-
-
+                  </div>
+                  <div class="col-auto mx-auto">
+                    <p class="" for="inlineFormInputGroup"><strong>SEXO</strong></p><hr>
+                      <div class="text-center">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionM" value="H" [(ngModel)]="sexo" #Sexos="ngModel">
+                            <label class="form-check-label" for="OptionSiTC" style="font-size: 1rem"><i class="fas fa-male"></i><br><strong>Masculino</strong></label>
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionM" value="M" [(ngModel)]="sexo" #Sexos="ngModel">
+                            <label class="form-check-label" for="OptionSiTC" style="font-size: 1rem"><i class="fas fa-female"></i><br><strong>Femenino</strong></label>
+                          </div>
+                      </div>
                   </div>
           </div>
-          <h5><strong>Taller</strong></h5>
-          <hr>
-          <div class="form-row ">
-              <div class="col-auto mx-auto">
-                <label class="sr-only" for="inlineFormInputGroup">Entrada</label>
-                  <div class="input-group mb-2">
-                      <label>Fecha Entrada</label>
-                    <div class="input-group-prepend">
-                      <div class="input-group-text"><i class="faFileInvoice"></i></div>
-                    </div>
-                    
-                  <input type="date" class="form-control" id="inlineFormInputGroup" placeholder="Fecha Entrada" name="fechaent" [(ngModel)]="fechaent" #fechaents="ngModel">
-                </div>
-                <label class="sr-only" for="inlineFormInputGroup">Salida</label>
-                <div class="input-group mb-2">
-                    <label>Fecha Salida</label>
-                    <div class="input-group-prepend">
-                      <div class="input-group-text"><i class="faCar"></i></div>
-                    </div>
-                    
-                    <input type="date" class="form-control" id="inlineFormInputGroup" placeholder="Fecha Salida" name="fechasal" [(ngModel)]="fechasal" #fechasals="ngModel">
-                  </div>
-                  
-              </div>
-              
-              <div class="col-auto mx-auto">
-                  <p class="" for="inlineFormInputGroup"><strong>Tarjeta de Circulación</strong></p><hr>
-                  <div class="text-center">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiTC" value="si" [(ngModel)]="tarjetac" #tarjetacs="ngModel">
-                        <label class="form-check-label" for="OptionSiTC" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoTC" value="no" [(ngModel)]="tarjetac" #tarjetacs="ngModel">
-                        <label class="form-check-label" for="OptionNoTC" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                      </div>
-                  </div>
-                  <p class="mt-3" for="inlineFormInputGroup"><strong>Antena</strong></p><hr>
-                  <div class="text-center">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiA" value="si" [(ngModel)]="antena" #antenas="ngModel">>
-                        <label class="form-check-label" for="OptionSiL" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoA" value="no" [(ngModel)]="antena" #antenas="ngModel">>
-                        <label class="form-check-label" for="OptionNoL" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                      </div>
-                  </div>
-                  <p class="mt-3" for="inlineFormInputGroup"><strong>Control y Llave</strong></p><hr>
-                  <div class="text-center">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiL" value="option1L">
-                        <label class="form-check-label" for="OptionSiL" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoL" value="option2L">
-                        <label class="form-check-label" for="OptionNoL" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                      </div>
-                  </div>
-                  <p class="mt-3" for="inlineFormInputGroup"><strong>Llaves de tuercas</strong></p><hr>
-                      <div class="text-center">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiGTO" value="option1GTO">
-                            <label class="form-check-label" for="OptionSiGTO" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoGTO" value="option2GTO">
-                            <label class="form-check-label" for="OptionNoGTO" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                          </div>
-                      </div>
-                      <p class="mt-3" for="inlineFormInputGroup"><strong>Kit de Herramientas</strong></p><hr>
-                      <div class="text-center">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiGTO" value="option1GTO">
-                            <label class="form-check-label" for="OptionSiGTO" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoGTO" value="option2GTO">
-                            <label class="form-check-label" for="OptionNoGTO" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                          </div>
-                      </div>
-                  <p class="mt-3" for="inlineFormInputGroup"><strong>Placas</strong></p><hr>
-                  <div class="text-center">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiL" value="option1L">
-                        <label class="form-check-label" for="OptionSiL" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoL" value="option2L">
-                        <label class="form-check-label" for="OptionNoL" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                      </div>
-                  </div>
-                </div>
-                  <div class="col-auto mx-auto">
-                      <p class="" for="inlineFormInputGroup"><strong>Llantas</strong></p><hr>
-                      <div class="text-center">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiLL" value="option1LL">
-                            <label class="form-check-label" for="OptionSiLL" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoLL" value="option2LL">
-                            <label class="form-check-label" for="OptionNoLL" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                          </div>
-                      </div>
-                      <p class="mt-3" for="inlineFormInputGroup"><strong>LLanta Refaccion</strong></p><hr>
-                      <div class="text-center">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiGTO" value="option1GTO">
-                            <label class="form-check-label" for="OptionSiGTO" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoGTO" value="option2GTO">
-                            <label class="form-check-label" for="OptionNoGTO" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                          </div>
-                      </div>
-                      <p class="mt-3" for="inlineFormInputGroup"><strong>Gato</strong></p><hr>
-                      <div class="text-center">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiGTO" value="option1GTO">
-                            <label class="form-check-label" for="OptionSiGTO" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoGTO" value="option2GTO">
-                            <label class="form-check-label" for="OptionNoGTO" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                          </div>
-                      </div>
-                      <p class="mt-3" for="inlineFormInputGroup"><strong>Tapon de Llanta</strong></p><hr>
-                      <div class="text-center">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiLL" value="option1LL">
-                            <label class="form-check-label" for="OptionSiLL" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoLL" value="option2LL">
-                            <label class="form-check-label" for="OptionNoLL" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                          </div>
-                      </div>
-                      <p class="mt-3" for="inlineFormInputGroup"><strong>Seguro de ruedas</strong></p><hr>
-                      <div class="text-center">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiGTO" value="option1GTO">
-                            <label class="form-check-label" for="OptionSiGTO" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoGTO" value="option2GTO">
-                            <label class="form-check-label" for="OptionNoGTO" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                          </div>
-                      </div>
-                      <p class="mt-3" for="inlineFormInputGroup"><strong>Tapon Gasolina</strong></p><hr>
-                  <div class="text-center">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiL" value="option1L">
-                        <label class="form-check-label" for="OptionSiL" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                      </div>
-                      <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoL" value="option2L">
-                        <label class="form-check-label" for="OptionNoL" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                      </div>
-                  </div>
-                    </div>
-                    <div class="col-auto mx-auto">
-                        <p class="" for="inlineFormInputGroup"><strong>Traé orden de servicio</strong></p><hr>
-                        <div class="text-center">
-                          <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiSERV" value="option1SERV">
-                              <label class="form-check-label" for="OptionSiSERV" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoSERV" value="option2SERV">
-                              <label class="form-check-label" for="OptionNoSERV" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                            </div>
-                        </div>
-                        <p class="mt-3" for="inlineFormInputGroup"><strong>Vestiduras</strong></p><hr>
-                        <div class="text-center">
-                          <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiL" value="option1L">
-                              <label class="form-check-label" for="OptionSiL" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoL" value="option2L">
-                              <label class="form-check-label" for="OptionNoL" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                            </div>
-                        </div>
-                        <p class="mt-3" for="inlineFormInputGroup"><strong>Tapetes</strong></p><hr>
-                        <div class="text-center">
-                          <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiL" value="option1L">
-                              <label class="form-check-label" for="OptionSiL" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoL" value="option2L">
-                              <label class="form-check-label" for="OptionNoL" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                            </div>
-                        </div>
-                        <p class="mt-3" for="inlineFormInputGroup"><strong>Extintor</strong></p><hr>
-                      <div class="text-center">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiGTO" value="option1GTO">
-                            <label class="form-check-label" for="OptionSiGTO" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoGTO" value="option2GTO">
-                            <label class="form-check-label" for="OptionNoGTO" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                          </div>
-                      </div>
-                      <p class="mt-3" for="inlineFormInputGroup"><strong>Señales</strong></p><hr>
-                      <div class="text-center">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiGTO" value="option1GTO">
-                            <label class="form-check-label" for="OptionSiGTO" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoGTO" value="option2GTO">
-                            <label class="form-check-label" for="OptionNoGTO" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                          </div>
-                      </div>
-                        <p class="mt-3" for="inlineFormInputGroup"><strong>Radio </strong></p><hr>
-                        <div class="text-center">
-                          <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionSiL" value="option1L">
-                              <label class="form-check-label" for="OptionSiL" style="font-size: 1rem"><i class="faYes"></i><strong></strong></label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionNoL" value="option2L">
-                              <label class="form-check-label" for="OptionNoL" style="font-size: 1rem"><i class="faNo"></i><strong></strong></label>
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="input-group mb-2">
-                            <div class="input-group-prepend">
-                              <div class="input-group-text"><i class="faUser"></i></div>
-                            </div>
-                            <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Administrador de Flota">
-                          </div>
-                      </div>
-                      <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                          <div class="input-group-text"><i class="faUser"></i></div>
-                        </div>
-                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Asesor">
-                      </div>
-                      <div class="input-group mb-2">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="faUser"></i></div>
-                          </div>
-                          <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Solicitud de Diagnostico">
-                        </div>
-                        <div class="input-group mb-2">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="faUser"></i></div>
-                          </div>
-                          <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Trabajo Solicitado">
-                        </div>
-                        <div class="input-group mb-2">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="faUser"></i></div>
-                          </div>
-                          <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Trabajo Realizado">
-                        </div>
-                        <div class="input-group mb-2">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="faUser"></i></div>
-                          </div>
-                          <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Estatus">
-                        </div>
-                        <div class="input-group mb-2">
-                          <div class="input-group-prepend">
-                            <div class="input-group-text"><i class="faUser"></i></div>
-                          </div>
-                          <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Tecnico">
-                        </div>
-            </div>
         </div>
     </div>
-    <!-- Reparación -->
     
-    <!-- Tramites -->
-    
-<!-- Datos del Cliente -->
-    <br>
-    <h4><strong>Datos del cliente:</strong></h4><hr>
-    <form>
-    <div class="form-group">
-      <label for="NombreCliente" style="font-size: 1rem"><strong>Nombre: </strong></label><br>
-      <input type="text" class="form-control text-center" style="font-size: 1rem" id="NombreCliente" aria-describedby="NombreCliente" placeholder="Juan Perez Sanchez">
-      <hr>
-          <div class="form-row ">
-              <div class="col-auto mx-auto">
-                  <label class="sr-only" for="inlineFormInputGroup">Correo Electronico</label>
-                  <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text"><i class="faEnvelope"></i></div>
-                    </div>
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="nombre@correo.com">
-                  </div>
-                </div>
-            <div class="col-auto mx-auto">
-                <label class="sr-only" for="inlineFormInputGroup">Telefono</label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="faMobileAlt"></i></div>
-                  </div>
-                  <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="55-1234-5678">
-                </div>
-              </div>
-              <div class="col-auto mx-auto">
-                  <label class="sr-only" for="inlineFormInputGroup">Cliente</label>
-                  <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text"><i class="faMobileAlt"></i></div>
-                    </div>
-                    <select name="proveedor" class="form-control" placeholder="Cliente" [(ngModel)]="Cliente" #cliente="ngModel" >
-                        <option>CFE Integra</option>
-                        <option>CFE VIga</option>
-                        <option>Centenario</option>
-                        <option>Patriotismo</option>
-                        <option>Coacalco</option>
-                        <option>CFE Integra</option>
-                    </select>
-                  </div>
-                </div>
-          </div>
-    </div>
-  </form>
-    <hr>
 <!-- Envio formulario Llenado completo-->
     <button type="submit" class="btn btn-primary btn-block mb-2" style="font-size: 1rem" value="Guardar"><strong>Ingresar</strong></button>
   </form>

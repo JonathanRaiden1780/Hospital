@@ -7,3 +7,4 @@ export interface MedicamentosInterface {
     presentacion:string;
     lote:string;
 };
+
