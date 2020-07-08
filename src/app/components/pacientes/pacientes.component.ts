@@ -1,34 +1,53 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { HistorialService } from 'src/app/services/historial.service';
 import { PacienteInterface } from "../../interfaces/paciente";
 import {EntidadInterface } from "../../interfaces/entidad";
 import { _isNumberValue } from '@angular/cdk/coercion';
+import *  as $ from "jquery";
+import { parseJSON } from 'date-fns';
+import { NbPopoverDirective } from '@nebular/theme';
+import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { tr } from 'date-fns/locale';
 
 @Component({
   selector: 'app-pacientes',
   templateUrl: './pacientes.component.html',
   styleUrls: ['./pacientes.component.css']
 })
+
 export class PacientesComponent implements OnInit {
+  @ViewChild(NbPopoverDirective) popover: NbPopoverDirective;
+
+  openpop() {
+    this.popover.show();
+  }
+
+  closepop() {
+    this.popover.hide();
+  }
 
   constructor(
     private router: Router,
-    private authservice: AuthService
-  ) { }
-    public email:string;
-    public pass: string;
-    public nombre: string;
-    public apaterno: string;
-    public amaterno: string;
-    public empleado: string;
-    public clinica: string;
-    public cedula: string;
-
+    private authservice: AuthService,
+    private historialservice : HistorialService,
+    config: NgbModalConfig, private modalService: NgbModal
+  ) { 
+    config.backdrop = 'static';
+    config.keyboard = false;
+  }
+    
     entidadesi: EntidadInterface;
+    nombre:string
+    apaterno:string
+    amaterno:string
+    telefono:number
+    correo:string
     curp:string
-    fechan:string
+    fnacimiento:string
+    fechan2:string
     entidad:string
     sexo:string;
     norigen:string
@@ -36,42 +55,108 @@ export class PacientesComponent implements OnInit {
     municipio:string
     cp:string
     folio: string;
-    
-  ngOnInit() {
-  }
+    colonia: string;
+    paciente:PacienteInterface;
 
+  ngOnInit() {
+    if(this.folio == ''|| this.curp == '' || this.nombre =='' || this.apaterno=='' ||this.norigen == ''
+    ||this.amaterno==''|| this.cp == ''|| this.sexo==''||this.colonia=='' || this.fechan2 ==''
+    || this.telefono == 0 || this.correo == '' || this.municipio == ''||this.edo == '' || this.entidad == '' ||
+     this.folio == undefined|| this.curp == undefined || this.nombre =='' || this.apaterno=='' ||this.norigen == undefined
+     ||this.amaterno==''|| this.cp == undefined|| this.sexo==''||this.colonia=='' || this.fechan2 ==''
+  || this.telefono == undefined || this.correo == undefined || this.municipio == undefined||this.edo == undefined || this.entidad == undefined ){
+      this.completo = false
+    }
+    else{
+      this.completo = true;
+    }
+  }
+  query(x){
+    var endpoint_sepomex  = "http://api-sepomex.hckdrk.mx/query/";
+    var method_sepomex = 'info_cp/';
+    var variable_string = '?type=simplified';
+    var setting = {
+      "async": true,
+      "crossDomain": true,
+      "url": endpoint_sepomex+method_sepomex+this.cp+variable_string,
+      "method": "GET",
+      };
+  var y = this;
+   $.get(setting.url,  function(data){ 
+    y.com(data.response)})
+  }
+  com(response){
+  this.municipio = response.municipio;
+  this.edo = response.estado;
+  this.colonia = response.asentamiento[0] ;
+  }
 Registro(x){
-console.log(x, 
-this.curp)//HUVJ951027HDRFZN04
- var año = this.curp.slice(4,6)
+var año = this.curp.slice(4,6)
 var mes = this.curp.slice(6,8)
 var dia = this.curp.slice(8,10)
 var mile = this.curp.slice(-2,-1)
 var ent = this.curp.slice(-7,-5).toUpperCase();
 var s = this.curp.slice(-8,-7).toUpperCase();
+if( !_isNumberValue(año) || !_isNumberValue(mes) ||!_isNumberValue(dia) || _isNumberValue(s) ){
+  alert('CURP NO VALIDO')
+}
 var t = this.data.entidades.find( entidad => entidad.ABREVIATURA === ent)
-this.entidad = t.ENTIDAD_FEDERATIVA;
+console.log(t)
+if(t == undefined){
+  alert('CURP NO VALIDO')
+}
+else{
+  this.entidad = t.ENTIDAD_FEDERATIVA;
+
+}
 this.sexo = s;
 this.norigen = 'Mexicana'
 //this.entidades.entidad
 console.log(ent)
-if(_isNumberValue(mile))
-this.fechan =  '19'+año +'-'+mes+'-'+dia
+if(_isNumberValue(mile)){
+  this.fnacimiento=  '19'+año +'-'+mes+'-'+dia
+  this.fechan2 = dia+'/'+mes+'/'+'19'+año
+}
+else{
+  this.fnacimiento=  '20'+año +'-'+mes+'-'+dia
+  this.fechan2 = dia+'/'+mes+'/'+'20'+año
+}
+
+
 
 }
-onGuardar(x){
-  console.log(x)
+nombrecom: string;
+completo: boolean
+co({value}: {value: PacienteInterface},bool){
+  value.curp = this.curp.toUpperCase();
+    value.fnacimiento = this.fechan2;
+    value.id = this.folio;
+  this.historialservice.addnew(value)
+  document.forms.namedItem('formGuardar').reset();
+  document.forms.namedItem('formGuardar2').reset();
 }
-  addnewuser(){
-     this.authservice.registeruser(this.email,this.pass)
-    .then((res)=>{
-      this.router.navigate(['/login'])
-    }).catch(err=> console.log('err',err.message)); 
+onGuardar({value}: {value: PacienteInterface},content){
+  this.completo = true;
+
+  if(this.folio == ''|| this.curp == '' || this.nombre =='' || this.apaterno=='' ||this.norigen == ''
+  ||this.amaterno==''|| this.cp == ''|| this.sexo==''||this.colonia=='' || this.fechan2 ==''
+  || this.telefono == 0 || this.correo == '' || this.municipio == ''||this.edo == '' || this.entidad == '' ||
+   this.folio == undefined|| this.curp == undefined || this.nombre =='' || this.apaterno=='' ||this.norigen == undefined
+   ||this.amaterno==''|| this.cp == undefined|| this.sexo==''||this.colonia=='' || this.fechan2 ==''
+|| this.telefono == undefined || this.correo == undefined || this.municipio == undefined||this.edo == undefined || this.entidad == undefined ){
+    alert('Completar todos los campos')
+    this.completo = false
   }
-  guardarregistro({value}: {value: PacienteInterface}){
-    
-    //this.authservice.addregistro(value);
+  else{
+    value.curp = this.curp.toUpperCase();
+    value.fnacimiento = this.fechan2;
+    value.id = this.folio;
+    this.nombrecom = this.nombre+' '+this.apaterno+' '+this.amaterno;
+    this.modalService.open(content)    
   }
+ 
+}
+ 
    data={
   entidades: [
     {

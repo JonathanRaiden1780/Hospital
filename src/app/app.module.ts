@@ -23,14 +23,16 @@ import { InventarioService } from './services/inventario.service';
 import { AuthGuard } from './guard/auth.guard';
 import { AuthService } from './services/auth.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbIconModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbIconModule, NbTooltipModule, NbPopoverModule, NbWindowModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CommonModule } from '@angular/common';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FlatpickrModule } from "angularx-flatpickr";
+import { OverlayModule } from '@angular/cdk/overlay';
+
 
 @NgModule({
   declarations: [
@@ -54,6 +56,7 @@ import { FlatpickrModule } from "angularx-flatpickr";
     NgbModalModule,
     FlatpickrModule.forRoot(),
     BrowserModule,
+    NgbModule,
     AppRoutingModule,
     Ng2SmartTableModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
@@ -63,6 +66,7 @@ import { FlatpickrModule } from "angularx-flatpickr";
     NbThemeModule.forRoot({ name: 'dark' }),
     NbLayoutModule,
     NbEvaIconsModule,
+    OverlayModule,
     NbIconModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],

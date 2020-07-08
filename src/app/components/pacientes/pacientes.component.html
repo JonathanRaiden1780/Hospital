@@ -1,29 +1,29 @@
 <app-nav></app-nav  >
     
 <!-- Contenido -->
-<div class="card col-md-2 mt-3 ml-1 text-white text-center form-inline" style="background-color: #1a3263"><i class="faCarCrash" class="fa-2x"></i><strong><h2>Pacientes</h2></strong></div>
+<div class="card col-md-2 mt-3 ml-1 text-white text-center form-inline" style="background-color: #1a3263"><i class="fa fa-user" class="fa-2x"></i><strong><h2>Pacientes</h2></strong></div>
 
 <!-- Llenado rapido-->
 <div class="card col-md-5 mt-3 ml-1 text-white text-center form-inline" style="background-color: #1a3263"><strong><h2>Registro de Pacientes</h2></strong></div>
 <div class="card col-md-6 offset-md-3 mt-2">
-<form #formGuardar="ngForm" (ngSubmit)="Registro(formGuardar)">
+<form  #formGuardar="ngForm" (ngSubmit)="Registro(formGuardar)">
     <div class="form-group">
       <h4><strong>CURP</strong></h4>
-      <input type="text" class="form-control text-center" pattern="[A-Z]*" style="text-transform: uppercase; font-size: 1rem " name="curps" [(ngModel)]="curp" #CURPs="ngModel" id="curp" aria-describedby="CURP" placeholder="VI1234">
+      <input  type="text" class="form-control text-center" pattern="[A-Z]*" style="text-transform: uppercase; font-size: 1rem " name="curp" [(ngModel)]="curp" #curps="ngModel" id="curp" aria-describedby="CURP" placeholder="VI1234" >
     </div>
    
       <hr>
-    <button type="submit" class="btn btn-primary btn-block mb-2" style="font-size: 1rem" value="Guardar"><strong>Ingresar</strong></button>
+    <button type="btn" class="btn btn-primary btn-block mb-2" style="font-size: 1rem" ><strong>Ingresar</strong></button>
   </form>
 </div>
 
 <!-- Llenado completo -->
 <div class="card col-md-7 mt-3 ml-1 text-white text-center form-inline" style="background-color: #1a3263"><strong><h2>Informacion Detallada</h2></strong></div>
 <div class="card col-md-10 offset-md-1 mt-2">
-<form #formGuardar="ngForm" (ngSubmit)="onGuardar(formGuardar)">
+<form class="was-validated" novalidate  #formGuardar2="ngForm" (ngSubmit)="onGuardar(formGuardar2,content2)">
     <div class="form-group mt-3">
       <h4><strong>FOLIO INTERNO</strong></h4>
-      <input type="text" class="form-control text-center" style="font-size: 1rem" id="folio" aria-describedby="FOLIO"  placeholder="XXXX000000XXXXXX00" [(ngModel)]="folio" #FOLIOs="ngModel">
+      <input nbInput nbPopover="Campo Requerido" nbPopoverTrigger="noop" type="text" class="form-control text-center" style="font-size: 1rem" id="folio" aria-describedby="FOLIO"  placeholder="XXXX000000XXXXXX00" name="folio" [(ngModel)]="folio" #folios="ngModel" required>
     </div>
     
 <!-- fomrmulario de Servicio -->
@@ -36,67 +36,148 @@
         <div class="card-body text-center">
           <div class="form-row ">
             <div class="col-auto mx-auto">
+              <label  for="inlineFormInputGroup">NOMBRES(s)</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-birthday-cake"></i></div>
+                  </div>
+                  <input  type="text" class="form-control" id="inlineFormInputGroup" placeholder="NOMBRE" name="nombre" [(ngModel)]="nombre" #nacionalidad="ngModel" required>
+              </div>
+              <label  for="inlineFormInputGroup">APELLIDO PATERNO</label>
+              <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fa fa-globe"></i></div>
+                  </div>
+                  <input  type="text" class="form-control" id="inlineFormInputGroup" placeholder="APELLIDO PATERNO" name="apaterno" [(ngModel)]="apaterno" #entidadn="ngModel" required>
+                </div>
+                <label  for="inlineFormInputGroup">APELLIDO MATERNO</label>
+              <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-globe-americas"></i></div>
+                  </div>
+                  <input  type="text" class="form-control" id="inlineFormInputGroup" placeholder="APELLIDO MATERNO" name="amaterno" [(ngModel)]="amaterno" #nacionalidad="ngModel" required>
+                </div>
+            </div>
+            <div class="col-auto mx-auto">
               <label  for="inlineFormInputGroup">FECHA DE NACIMIENTO</label>
                 <div class="input-group mb-2">
                   <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="faFileInvoice"></i></div>
+                    <div class="input-group-text"><i class="fa fa-birthday-cake"></i></div>
                   </div>
-                <input type="date" class="form-control" id="inlineFormInputGroup" value="{fechan}" placeholder="XX/xX/XX" name="fecha" [(ngModel)]="fechan" #fechanacimiento="ngModel"> 
+                <input  type="date" class="form-control" id="inlineFormInputGroup" value="{fechan}" placeholder="XX/xX/XX" name="fnacimiento" [(ngModel)]="fnacimiento" #fechanacimiento="ngModel" required> 
               </div>
               <label  for="inlineFormInputGroup">ENTIDAD NACIMIENTO</label>
               <div class="input-group mb-2">
                   <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="faCar"></i></div>
+                    <div class="input-group-text"><i class="fa fa-globe"></i></div>
                   </div>
-                  <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="ENTIDAD" name="entidadn" [(ngModel)]="entidad" #entidadn="ngModel">
+                  <input  type="text" class="form-control" id="inlineFormInputGroup" placeholder="ENTIDAD" name="entidad" [(ngModel)]="entidad" #entidadn="ngModel" required>
                 </div>
                 <label  for="inlineFormInputGroup">NACIONALIDAD ORIGEN</label>
               <div class="input-group mb-2">
                   <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="faCar"></i></div>
+                    <div class="input-group-text"><i class="fas fa-globe-americas"></i></div>
                   </div>
-                  <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Nacionalidad" name="norigenn" [(ngModel)]="norigen" #nacionalidad="ngModel">
+                  <input  type="text" class="form-control" id="inlineFormInputGroup" placeholder="Nacionalidad" name="norigen" [(ngModel)]="norigen" #nacionalidad="ngModel"required>
                 </div>
             </div>
                 <div class="col-auto mx-auto">
+                    <label  for="inlineFormInputGroup">CODIGO POSTAL</label>
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text"> <i class="fas fa-mail-bulk"></i></div>
+                    </div>
+                      <input  type="text" class="form-control" id="inlineFormInputGroup" placeholder="CP" name="cp" [(ngModel)]="cp" #codigop="ngModel"required>
+                    <div class="input-group-prepend">
+                        <div class="form-control" (click)="query($event)"> <i class="fas fa-search"></i></div>
+                    </div>
+                    </div>
                     <label  for="inlineFormInputGroup">ESTADO RESIDENCIA</label>
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
-                        <div class="input-group-text"><i class="faSerial"></i></div>
+                        <div class="input-group-text"><i class="fas fa-city"></i></div>
                       </div>
-                      <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="ESTADO RESIDENCIA" name="edresidencia" [(ngModel)]="edo" #edor="ngModel">
+                      <input  type="text" class="form-control" id="inlineFormInputGroup" placeholder="ESTADO RESIDENCIA" name="edo" [(ngModel)]="edo" #edor="ngModel"required>
                     </div>
                     <label  for="inlineFormInputGroup">MUNICIPIO</label>
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
-                        <div class="input-group-text"><i class="faKm"></i></div>
+                        <div class="input-group-text"><i class="fa fa-building"></i></div>
                       </div>
-                      <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Municipio" name="municipsio" [(ngModel)]="municipio" #mun="ngModel">
-                    </div>
-                    <label  for="inlineFormInputGroup">CODIGO POSTAL</label>
-                    <div class="input-group mb-2">
-                      <div class="input-group-prepend">
-                        <div class="input-group-text"><i class="faKm"></i></div>
-                      </div>
-                      <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="CP" name="cps" [(ngModel)]="cp" #codigop="ngModel">
+                      <input  type="text" class="form-control" id="inlineFormInputGroup" placeholder="Municipio" name="municipio" [(ngModel)]="municipio" #mun="ngModel"required>
                     </div>
                   </div>
                   <div class="col-auto mx-auto">
+                    <label  for="inlineFormInputGroup">COLONIA</label>
+                    <div class="input-group mb-2">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fa fa-building"></i></div>
+                      </div>
+                      <input  type="text" class="form-control" id="inlineFormInputGroup" placeholder="Colonia" name="colonia" [(ngModel)]="colonia" #col="ngModel"required>
+                    </div>
                     <p class="" for="inlineFormInputGroup"><strong>SEXO</strong></p><hr>
                       <div class="text-center">
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionM" value="H" [(ngModel)]="sexo" #Sexos="ngModel">
+                            <input class="form-check-input" type="radio" name="sexo" id="OptionM" value="H" [(ngModel)]="sexo" #Sexos="ngModel" required>
                             <label class="form-check-label" for="OptionSiTC" style="font-size: 1rem"><i class="fas fa-male"></i><br><strong>Masculino</strong></label>
-                            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="OptionM" value="M" [(ngModel)]="sexo" #Sexos="ngModel">
+                            <input class="form-check-input" type="radio" name="sexo" id="OptionM" value="M" [(ngModel)]="sexo" #Sexos="ngModel" required>
                             <label class="form-check-label" for="OptionSiTC" style="font-size: 1rem"><i class="fas fa-female"></i><br><strong>Femenino</strong></label>
                           </div>
                       </div>
                   </div>
-          </div>
+              </div>
+              <div class="form-row ">
+                <div class="col-auto mx-auto">
+                  <label  for="inlineFormInputGroup">CORREO</label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text"><i class="fa fa-envelope"></i></div>
+                    </div>
+                    <input  type="email" class="form-control" id="inlineFormInputGroup" placeholder="correo@xxxxx.com" name="correo" [(ngModel)]="correo" #mail="ngModel"required>
+                  </div>
+                </div>
+                <div class="col-auto mx-auto">
+                  <label  for="inlineFormInputGroup">TELEFONO</label>
+                  <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text"><i class="fa fa-phone"></i></div>
+                    </div>
+                    <input  type="tel" class="form-control" id="inlineFormInputGroup" placeholder="TELEFONO" name="telefono" [(ngModel)]="telefono" #cel="ngModel"required>
+                  </div>
+                </div>
+              </div>
         </div>
     </div>
     
 <!-- Envio formulario Llenado completo-->
-    <button type="submit" class="btn btn-primary btn-block mb-2" style="font-size: 1rem" value="Guardar"><strong>Ingresar</strong></button>
+    <button type="submit" class="btn btn-primary btn-block mb-2" style="font-size: 1rem" value="Guardar" ><strong>Ingresar</strong></button>
   </form>
 </div>
+<ng-template #content2 let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h2 class="modal-title" id="modal-basic-title">Verificar datos</h2>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Folio: {{folio}}</p>
+    <p>Nombre: {{nombrecom}}</p>
+    <p>CURP: {{curp.toUpperCase()}}</p>
+    <p>Fecha nacimiento: {{fechan2}}</p>
+    <p>Entidad Naciminento: {{entidad}}</p>
+    <p>Nacionalidad: {{norigen}}</p>
+    <p>SEXO: {{sexo}}</p>
+    <h3>Domicilio</h3>
+    <p>Colonia: {{colonia}}</p>
+    <p>Municipio: {{municipio}}</p>
+    <p>CP: {{cp}}</p>
+    <p>Estado: {{edo}}</p>
+    <h3>Contacto</h3>
+    <p>Correo: {{correo}}</p>
+    <p>Telefono: {{telefono}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="co(formGuardar2, true);c()">Save</button>
+  </div>
+</ng-template>

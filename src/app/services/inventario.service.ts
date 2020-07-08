@@ -3,7 +3,7 @@ import { MedicamentosInterface } from '../interfaces/medicamentos';
 import { AngularFirestoreCollection, AngularFirestoreDocument, AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
-import { map } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -26,11 +26,25 @@ export class InventarioService {
     this.mcollection.doc(medicamentosi.compuesto).collection(medicamentosi.nombre).doc(medicamentosi.presentacion).update({existencia: firebase.firestore.FieldValue.increment(x)});
     this.mcollection.doc(medicamentosi.compuesto).collection(medicamentosi.nombre).doc(medicamentosi.presentacion).collection('Inventario').doc(medicamentosi.caducidad).update({existencia: firebase.firestore.FieldValue.increment(x)});
     this.afs.collection('InventarioGeneral').doc(medicamentosi.nombre+medicamentosi.presentacion+'_'+medicamentosi.lote).update({existencia: firebase.firestore.FieldValue.increment(x)});
+    this.mcollection.doc(medicamentosi.compuesto).collection(medicamentosi.nombre).doc(medicamentosi.presentacion).collection('Inventario').doc(medicamentosi.caducidad).collection('Existencia').doc(medicamentosi.lote).update({existencia: firebase.firestore.FieldValue.increment(x)});    
   }
   salida(medicamentosi,x){
-    this.mcollection.doc(medicamentosi.compuesto).collection(medicamentosi.nombre).doc(medicamentosi.presentacion).update({existencia: firebase.firestore.FieldValue.increment(-x)});
-    this.mcollection.doc(medicamentosi.compuesto).collection(medicamentosi.nombre).doc(medicamentosi.presentacion).collection('Inventario').doc(medicamentosi.caducidad).update({existencia: firebase.firestore.FieldValue.increment(-x)});
-    this.afs.collection('InventarioGeneral').doc(medicamentosi.nombre+medicamentosi.presentacion+'_'+medicamentosi.lote).update({existencia: firebase.firestore.FieldValue.increment(x)});
+    if(x <= medicamentosi.existencia)
+    {
+      if(x < medicamentosi.existencia){
+        console.log('es menor')
+        this.mcollection.doc(medicamentosi.compuesto).collection(medicamentosi.nombre).doc(medicamentosi.presentacion).update({existencia: firebase.firestore.FieldValue.increment(-x)});
+        this.mcollection.doc(medicamentosi.compuesto).collection(medicamentosi.nombre).doc(medicamentosi.presentacion).collection('Inventario').doc(medicamentosi.caducidad).update({existencia: firebase.firestore.FieldValue.increment(-x)});
+        this.afs.collection('InventarioGeneral').doc(medicamentosi.nombre+medicamentosi.presentacion+'_'+medicamentosi.lote).update({existencia: firebase.firestore.FieldValue.increment(-x)});
+        this.mcollection.doc(medicamentosi.compuesto).collection(medicamentosi.nombre).doc(medicamentosi.presentacion).collection('Inventario').doc(medicamentosi.caducidad).collection('Existencia').doc(medicamentosi.lote).update({existencia: firebase.firestore.FieldValue.increment(-x)});    
+      }
+      else{
+        this.deletemed(medicamentosi)
+      }
+    }
+    else{
+      alert('No hay suficiente en stock')
+    }
   }
   addmed(medicamentosi){
     medicamentosi.precio = '$'+medicamentosi.precio;

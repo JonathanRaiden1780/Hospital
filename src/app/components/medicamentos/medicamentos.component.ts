@@ -96,7 +96,7 @@ export class MedicamentosComponent implements OnInit {
   salidas(event){
     var e = prompt('Cuantas unidades salen ?');
     var t:number = +e;
-    this.medservice.entrada(event, t);
+    this.medservice.salida(event, t);
   }
   ngOnInit(): void {
 
