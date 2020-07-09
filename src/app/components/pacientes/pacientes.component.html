@@ -87,7 +87,7 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text"> <i class="fas fa-mail-bulk"></i></div>
                     </div>
-                      <input  type="text" class="form-control" id="inlineFormInputGroup" placeholder="CP" name="cp" [(ngModel)]="cp" #codigop="ngModel"required>
+                      <input oninput="this.value=this.value.replace(/[^0-9]/g,'');" pattern="\d{5}" minlength="10" maxlength="5" type="text" class="form-control" id="inlineFormInputGroup" placeholder="CP" name="cp" [(ngModel)]="cp" #codigop="ngModel"required>
                     <div class="input-group-prepend">
                         <div class="form-control" (click)="query($event)"> <i class="fas fa-search"></i></div>
                     </div>
@@ -142,7 +142,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text"><i class="fa fa-phone"></i></div>
                     </div>
-                    <input  type="tel" class="form-control" id="inlineFormInputGroup" placeholder="TELEFONO" name="telefono" [(ngModel)]="telefono" #cel="ngModel"required>
+                    <input oninput="this.value=this.value.replace(/[^0-9]/g,'');" pattern="\d{10}" minlength="10" maxlength="10" type="tel" class="form-control" id="inlineFormInputGroup" placeholder="TELEFONO" name="telefono" [(ngModel)]="telefono" #cel="ngModel"required>
                   </div>
                 </div>
               </div>

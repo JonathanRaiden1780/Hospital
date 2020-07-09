@@ -11,6 +11,7 @@ import { parseJSON } from 'date-fns';
 import { NbPopoverDirective } from '@nebular/theme';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { tr } from 'date-fns/locale';
+import { NgForm, RequiredValidator } from '@angular/forms';
 
 @Component({
   selector: 'app-pacientes',
@@ -20,7 +21,14 @@ import { tr } from 'date-fns/locale';
 
 export class PacientesComponent implements OnInit {
   @ViewChild(NbPopoverDirective) popover: NbPopoverDirective;
+  @ViewChild('formGuardar') form1: NgForm;
+  @ViewChild('formGuardar2') form2: NgForm;
 
+ reset(){
+   this.form1.reset();
+   this.form2.reset();
+
+ }
   openpop() {
     this.popover.show();
   }
@@ -90,41 +98,39 @@ export class PacientesComponent implements OnInit {
   this.edo = response.estado;
   this.colonia = response.asentamiento[0] ;
   }
-Registro(x){
-var año = this.curp.slice(4,6)
-var mes = this.curp.slice(6,8)
-var dia = this.curp.slice(8,10)
-var mile = this.curp.slice(-2,-1)
-var ent = this.curp.slice(-7,-5).toUpperCase();
-var s = this.curp.slice(-8,-7).toUpperCase();
-if( !_isNumberValue(año) || !_isNumberValue(mes) ||!_isNumberValue(dia) || _isNumberValue(s) ){
-  alert('CURP NO VALIDO')
-}
-var t = this.data.entidades.find( entidad => entidad.ABREVIATURA === ent)
-console.log(t)
-if(t == undefined){
-  alert('CURP NO VALIDO')
-}
-else{
-  this.entidad = t.ENTIDAD_FEDERATIVA;
+  Registro(x){
+    var año = this.curp.slice(4,6)
+    var mes = this.curp.slice(6,8)
+    var dia = this.curp.slice(8,10)
+    var mile = this.curp.slice(-2,-1)
+    var ent = this.curp.slice(-7,-5).toUpperCase();
+    var s = this.curp.slice(-8,-7).toUpperCase();
+    if( !_isNumberValue(año) || !_isNumberValue(mes) ||!_isNumberValue(dia) || _isNumberValue(s) ){
+      alert('CURP NO VALIDO')
+    }
+    var t = this.data.entidades.find( entidad => entidad.ABREVIATURA === ent)
+    console.log(t)
+    if(t == undefined){
+      alert('CURP NO VALIDO')
+    }
+    else{
+      this.entidad = t.ENTIDAD_FEDERATIVA;
 
-}
-this.sexo = s;
-this.norigen = 'Mexicana'
-//this.entidades.entidad
-console.log(ent)
-if(_isNumberValue(mile)){
-  this.fnacimiento=  '19'+año +'-'+mes+'-'+dia
-  this.fechan2 = dia+'/'+mes+'/'+'19'+año
-}
-else{
-  this.fnacimiento=  '20'+año +'-'+mes+'-'+dia
-  this.fechan2 = dia+'/'+mes+'/'+'20'+año
+    }
+    this.sexo = s;
+    this.norigen = 'Mexicana'
+    //this.entidades.entidad
+    console.log(ent)
+    if(_isNumberValue(mile)){
+      this.fnacimiento=  '19'+año +'-'+mes+'-'+dia
+      this.fechan2 = dia+'/'+mes+'/'+'19'+año
+    }
+    else{
+      this.fnacimiento=  '20'+año +'-'+mes+'-'+dia
+      this.fechan2 = dia+'/'+mes+'/'+'20'+año
+    }
 }
 
-
-
-}
 nombrecom: string;
 completo: boolean
 co({value}: {value: PacienteInterface},bool){
@@ -132,10 +138,12 @@ co({value}: {value: PacienteInterface},bool){
     value.fnacimiento = this.fechan2;
     value.id = this.folio;
   this.historialservice.addnew(value)
-  document.forms.namedItem('formGuardar').reset();
-  document.forms.namedItem('formGuardar2').reset();
+  this.reset();
+  
 }
+
 onGuardar({value}: {value: PacienteInterface},content){
+  
   this.completo = true;
 
   if(this.folio == ''|| this.curp == '' || this.nombre =='' || this.apaterno=='' ||this.norigen == ''

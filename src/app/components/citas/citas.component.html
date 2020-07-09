@@ -1,65 +1,67 @@
 <app-nav></app-nav>
-<div class="row text-center">
-    <div class="col-md-4">
-      <div class="btn-group">
-        <div
-          class="btn btn-primary"
-          mwlCalendarPreviousView
-          [view]="view"
-          [(viewDate)]="viewDate"
-          (viewDateChange)="closeOpenMonthViewDay()"
-        >
-          Previous
+<div class="card-group">
+  <div class="card col-md-6 mt-3 ml-1 text-center" style="background-color: #ffffff">
+    <div class="row text-center">
+        <div class="col-md-4">
+          <div class="btn-group">
+            <div
+              class="btn btn-primary"
+              mwlCalendarPreviousView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="closeOpenMonthViewDay()"
+            >
+              Previous
+            </div>
+            <div
+              class="btn btn-outline-secondary"
+              mwlCalendarToday
+              [(viewDate)]="viewDate"
+            >
+              Today
+            </div>
+            <div
+              class="btn btn-primary"
+              mwlCalendarNextView
+              [view]="view"
+              [(viewDate)]="viewDate"
+              (viewDateChange)="closeOpenMonthViewDay()"
+            >
+              Next
+            </div>
+          </div>
         </div>
-        <div
-          class="btn btn-outline-secondary"
-          mwlCalendarToday
-          [(viewDate)]="viewDate"
-        >
-          Today
+        <div class="col-md-4">
+          <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
         </div>
-        <div
-          class="btn btn-primary"
-          mwlCalendarNextView
-          [view]="view"
-          [(viewDate)]="viewDate"
-          (viewDateChange)="closeOpenMonthViewDay()"
-        >
-          Next
+        <div class="col-md-4">
+          <div class="btn-group">
+            <div
+              class="btn btn-primary"
+              (click)="setView(CalendarView.Month)"
+              [class.active]="view === CalendarView.Month"
+            >
+              Month
+            </div>
+            <div
+              class="btn btn-primary"
+              (click)="setView(CalendarView.Week)"
+              [class.active]="view === CalendarView.Week"
+            >
+              Week
+            </div>
+            <div
+              class="btn btn-primary"
+              (click)="setView(CalendarView.Day)"
+              [class.active]="view === CalendarView.Day"
+            >
+              Day
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col-md-4">
-      <h3>{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
-    </div>
-    <div class="col-md-4">
-      <div class="btn-group">
-        <div
-          class="btn btn-primary"
-          (click)="setView(CalendarView.Month)"
-          [class.active]="view === CalendarView.Month"
-        >
-          Month
-        </div>
-        <div
-          class="btn btn-primary"
-          (click)="setView(CalendarView.Week)"
-          [class.active]="view === CalendarView.Week"
-        >
-          Week
-        </div>
-        <div
-          class="btn btn-primary"
-          (click)="setView(CalendarView.Day)"
-          [class.active]="view === CalendarView.Day"
-        >
-          Day
-        </div>
-      </div>
-    </div>
-  </div>
-  <br />
-  <div class="card col-md-8 mt-3 ml-1 text-center" style="background-color: #ffffff"><strong><h2>Citas Programadas</h2></strong>
+      <br />
+    <strong><h2>Citas Programadas</h2></strong>
   <div [ngSwitch]="view" >
     <mwl-calendar-month-view
       *ngSwitchCase="CalendarView.Month"
@@ -91,15 +93,12 @@
     >
     </mwl-calendar-day-view>
   </div>
-  
-  <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
-  
-  <br /><br /><br />
-  
+  </div>
+  <div class="card col-md-8 mt-3 ml-1 text-center" style="border-color: #ffffff">
   <h3>
-    Edit events
-    <button class="btn btn-primary float-right" (click)="addEvent()">
-      Add new
+    Citas
+    <button ngbButton size="tiny" class="btn btn-primary float-right" (click)="addEvent()">
+       Nueva <i class="fa fa-plus-square" ></i>
     </button>
     <div class="clearfix"></div>
   </h3>
@@ -108,18 +107,17 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Primary color</th>
-          <th>Secondary color</th>
-          <th>Starts at</th>
-          <th>Ends at</th>
-          <th>Remove</th>
+          <th>Paciente</th>
+          <th>Detalles de la cita</th>
+          <th>Urgencia</th>
+          <th>Fecha programada</th>
+          <th>Eliminar</th>
         </tr>
       </thead>
   
       <tbody>
         <tr *ngFor="let event of events">
-          <td>
+        <td>
             <input
               type="text"
               class="form-control"
@@ -128,16 +126,17 @@
             />
           </td>
           <td>
+              <input
+                  nbInput fullWidth fieldSize="giant"
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="event.detalles"
+                  (keyup)="refresh.next()"/>
+          </td>
+            <td>
             <input
               type="color"
               [(ngModel)]="event.color.primary"
-              (change)="refresh.next()"
-            />
-          </td>
-          <td>
-            <input
-              type="color"
-              [(ngModel)]="event.color.secondary"
               (change)="refresh.next()"
             />
           </td>
@@ -156,24 +155,9 @@
               placeholder="Not set"
             />
           </td>
-          <td>
-            <input
-              class="form-control"
-              type="text"
-              mwlFlatpickr
-              [(ngModel)]="event.end"
-              (ngModelChange)="refresh.next()"
-              [altInput]="true"
-              [convertModelValue]="true"
-              [enableTime]="true"
-              dateFormat="Y-m-dTH:i"
-              altFormat="F j, Y H:i"
-              placeholder="Not set"
-            />
-          </td>
-          <td>
-            <button class="btn btn-danger" (click)="deleteEvent(event)">
-              Delete
+          <td >
+            <button class="btn btn-danger" style="width: 50%;" (click)="deleteEvent(event)">
+                <i class="fa fa-times fa-xs"></i>
             </button>
           </td>
         </tr>
@@ -181,4 +165,132 @@
     </table>
   </div>
   </div>
+</div>
+<!--  -->
+  <ng-template #modalContent let-close="close" >
+    <div class="modal-header">
+      <h5 class="modal-title">Detalles de Cita</h5>
+      <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="card-group">
+        <div class="card col-md-5 mt-3 ml-1" style="border-color: #ffffff;">
+            <div>
+        Fecha programada:
+        <pre>{{ modalData?.fech }}</pre>
+      </div>
+      <div >
+        Folio asociado:
+        <pre>{{ listado.folio}}</pre>
+      </div>
+      <div >
+        Paciente:
+        <pre>{{ listado.nombre}} {{listado.apaterno}} {{listado.amaterno}}</pre>
+      </div>
+      <div >
+        Fecha de nacimiento:
+        <pre>{{ listado.fnacimiento}}</pre>
+      </div>
+      <div >
+        Telefono:
+        <pre>{{ listado.telefono}}</pre>
+      </div>
+      <div >
+        Correo:
+        <pre>{{ listado.correo}}</pre>
+      </div>
+    </div>
+    <div class="card col-md-3 mt-3 ml-1" style="border-color: #ffffff;">
+        <div >
+            Detalles:
+            <pre>{{ modalData.detalles}}</pre>
+          </div>
+    </div>
+</div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="close()">
+        OK
+      </button>
+    </div>
+    
+  </ng-template>
+  <ng-template #addnew let-close="close">
+    <div class="modal-header">
+      <h5 class="modal-title">Agendar nueva Cita</h5>
+      <button type="button" class="close" (click)="close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Paciente</th>
+                  <th>Detalles de la cita</th>
+                  <th>Urgencia</th>
+                  <th>Fecha programada</th>
+                  <th></th>
+                </tr>
+              </thead>
+          
+              <tbody>
+                <tr *ngFor="let event of valadd">
+                <td>
+                    <input
+                      type="text"
+                      class="form-control"
+                      [(ngModel)]="event.title"
+                      (keyup)="refresh.next()"
+                    />
+                  </td>
+                  <td>
+                      <input
+                          nbInput fullWidth fieldSize="giant"
+                          type="text"
+                          class="form-control"
+                          [(ngModel)]="event.detalles"
+                          (keyup)="refresh.next()"/>
+                  </td>
+                    <td>
+                    <input
+                      type="color"
+                      [(ngModel)]="event.color.primary"
+                      (change)="refresh.next()"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      class="form-control"
+                      type="text"
+                      mwlFlatpickr
+                      [(ngModel)]="event.start"
+                      (ngModelChange)="refresh.next()"
+                      [altInput]="true"
+                      [convertModelValue]="true"
+                      [enableTime]="true"
+                      dateFormat="Y-m-dTH:i"
+                      altFormat="F j, Y H:i"
+                      placeholder="Not set"
+                    />
+                  </td>
+                  <td >
+                    <button  class="btn btn-success"  (click)="guardar(event)">
+                        guardar
+                      </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+        </div>      
+    </div>  
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-secondary" (click)="close()">
+        OK
+      </button>
+    </div>
+  </ng-template>
   
