@@ -1,1 +1,177 @@
-<p>receta works!</p>
+<app-nav></app-nav>
+<div class="card col-md-fill mt-3 ml-2 text-white text-center form-inline" style="background-color: #1a3263"><i class="fa fa-user" class="fa-2x"></i><strong><h2>Receta Medica</h2></strong></div>
+<script src="print.js"></script>
+
+<!-- Llenado rapido-->
+<div class="card col-md-2 mt-3  text-white text-center form-inline" style="background-color: #1a3263"><strong><h5>BUSCAR PACIENTE</h5></strong></div>
+<div class="card col-md-2  mt-2">
+    <div class="form-group">
+      <h5><strong>FOLIO ASOCIADO</strong></h5>
+      <div class="input-group" >
+        <div class="input-group-prepend">
+          <div class="input-group-text"> <i class="fas fa-id-card	"></i></div>
+        </div>
+        <input  type="text" class="form-control text-center"  style=" font-size: 1rem " name="curp" [(ngModel)]="folio" #folios="ngModel" id="folio" aria-describedby="folio" placeholder="198237821" >
+        <div class="input-group-prepend">
+            <div class="form-control" (click)="searchpaci(folio)"> <i class="fas fa-search"></i></div>
+        </div>
+      </div>
+    </div>
+</div>
+<div #contentpdf id="contentpdf">
+    <br><br><br>
+    <div class="card">
+      <img *ngIf="visiblelogo" src="https://i.ibb.co/9N0MgPB/logo.png" class="navbar-brand" alt="SIClogo" style="width: 15%;">
+      <h5>Folio: {{foliop}} </h5>
+      <h5>Paciente: {{nombre}}</h5>
+      <h5>CURP: {{curp}}</h5>
+      <h5>Correo: {{correo}}</h5>
+      <h5>Telefono: {{telefono}}</h5>
+      <h5>Edad: {{edad}}</h5>
+    </div>
+<form class="form" #formGuardar="ngForm" (ngSubmit)="onSubmit()">
+<div class="card-group" >
+    <div class="card col-md-4">
+  <div class="card-header" >
+    <h5><strong>Registro Vitales</strong></h5></div>
+    <label  f>Alergias</label>
+          <div class="input-group"  >
+            <div class="input-group-prepend">
+              <div class="input-group-text"> <i class="fas fa-head-side-virus	"></i></div>
+            </div>
+            <input  type="text" class="form-control"  placeholder="" name="alergias" [(ngModel)]="alergias" #alergia="ngModel" required>
+          </div>  
+    <div class="form-row ">
+        <div class="col mx-auto">
+          <label  f>Estatura</label>
+          <div class="input-group"  >
+            <div class="input-group-prepend">
+              <div class="input-group-text"> <i class="fas fa-male"></i> <i class="fas fa-long-arrow-alt-up"></i></div>
+            </div>
+            <input  type="text" class="form-control"  placeholder="cm" name="estatura" [(ngModel)]="estatura" #cmestatura="ngModel" required>
+            <div class="input-group-prepend">
+                <div class="form-control" >CM</div>
+            </div>
+          </div>  
+          <label  f>Peso</label>
+          <div class="input-group" >
+            <div class="input-group-prepend">
+              <div class="input-group-text"> <i class="fas fa-weight"></i></div>
+            </div>
+            <input  type="text" class="form-control"  placeholder="Kg" name="peso" [(ngModel)]="peso" #pesokg="ngModel" required>
+            <div class="input-group-prepend">
+                <div class="form-control" >KG</div>
+            </div>
+          </div>
+          <label  f>Ritmo Cardiaco</label>
+          <div class="input-group" >
+            <div class="input-group-prepend">
+              <div class="input-group-text"> <i class="fa fa-heartbeat"></i></div>
+            </div>
+            <input  type="text" class="form-control"  placeholder="ppm" name="rpm" [(ngModel)]="rpm" #rpms="ngModel" required>            
+            <div class="input-group-prepend">
+                <div class="form-control" >PPM</div>
+            </div>
+          </div>  
+        </div>
+        <div class="col mx-auto">
+          <label  f>Presion Sanguinea</label>
+          <div class="input-group" >
+            <div class="input-group-prepend">
+              <div class="input-group-text"> <i class="fas fa-tachometer-alt"></i></div>
+            </div>
+            <input  type="text" class="form-control"  placeholder="min/max mmhg" name="mmhg" [(ngModel)]="mmhg" #mmhgs="ngModel" required>
+            <div class="input-group-prepend">
+                <div class="form-control" >MMHG</div>
+            </div>
+          </div>              
+          <label  f>Ritmo Respiratorio</label>
+          <div class="input-group" >
+            <div class="input-group-prepend">
+              <div class="input-group-text"> <i class="fa fa-stethoscope"></i></div>
+            </div>
+            <input  type="text" class="form-control"  placeholder="min/max" name="rrp" [(ngModel)]="rrp" #rrpn="ngModel" required>
+            <div class="input-group-prepend">
+                <div class="form-control" >RRPM</div>
+            </div>
+           </div>  
+           <label  f>Temperatura</label>
+          <div class="input-group" >
+            <div class="input-group-prepend">
+              <div class="input-group-text"> <i class="fas fa-thermometer-half"></i></div>
+            </div>
+            <input  type="text" class="form-control"  placeholder="°C" name="temperatura" [(ngModel)]="temperatura" #temperaturas="ngModel" required>
+            <div class="input-group-prepend">
+                <div class="form-control" >°C</div>
+            </div>
+           </div>  
+          
+        </div>
+    </div>
+    </div>
+    <div class="card col-md-fill">
+        <div>
+            <h4 class="text-center">Diagnostico</h4>
+            <hr width="70%" size="8" >
+            <textarea class="form-control"  name="sintomas" [(ngModel)]="sintomas" #sintoma="ngModel" required></textarea>
+            <h4 class="text-center">Prescripción</h4>
+            <hr width="70%" size="8" >
+            <div class="input-group"  >
+                <small>Agregar Medicamento  </small>
+
+               <div class="input-group-prepend" >
+                    <div (click)="query(addnew)"> <i style="color: green;" class="fas fa-plus-square fa-s"></i></div>
+                </div>
+                <br>
+                
+            </div>
+            <table mdbTable hover="true" >
+                <tbody *ngIf="lleno">
+                  <tr mdbTableCol *ngFor="let el of elements" >
+                    <td><h5>------</h5></td>  
+                    <td><h5>{{el.nombre}} </h5></td>
+                    <td><h5>{{el.compuesto}} </h5></td>
+                    <td><h5>{{el.presentacion}} </h5></td>
+                    <td><h5> Tomar</h5></td>
+                    <td><h5>{{el.Dosis}}</h5></td>    
+                    <td><h5>cada</h5></td>
+                    <td><h5>{{el.Frecuencia}}</h5></td>    
+                    <td><h5>durante</h5></td>
+                    <td><h5>{{el.Dias}}</h5></td>    
+                    <td><h5>días</h5></td>
+                  </tr>
+                </tbody>
+              </table> 
+              <br>
+              <br>
+            <h4 class="text-center">Indicaciones Adicionales</h4>
+            <hr width="70%" size="8" >
+            <textarea class="form-control"  name="adicional" [(ngModel)]="adicional" #adicionali="ngModel" required></textarea>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block mb-2" style="font-size: 1rem" value="Guardar" ><strong>Imprimir</strong></button>
+</div>
+</form>
+<div class="card"></div>
+</div>
+<br>
+<br>
+<br>
+<ng-template #addnew let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Agregar Medicamento</h5>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ng2-smart-table  (custom)="onCustomAction($event)"   [settings]="tableset" [source]="source"></ng2-smart-table>
+
+    <ng2-smart-table  [settings]="tableconfi" [source]="sourcetable"></ng2-smart-table>
+</div>  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="close(); add();">
+      OK
+    </button>
+  </div>
+</ng-template>

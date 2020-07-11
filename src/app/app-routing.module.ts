@@ -7,6 +7,8 @@ import { RegistroComponent } from './components/registro/registro.component';
 import { MedicamentosComponent } from './components/medicamentos/medicamentos.component';
 import { PacientesComponent } from './components/pacientes/pacientes.component';
 import { CitasComponent } from './components/citas/citas.component';
+import { Page404Component } from './components/page404/page404.component';
+import { RecetaComponent } from './components/receta/receta.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
@@ -16,6 +18,8 @@ const routes: Routes = [
   {path: 'inventario', component: MedicamentosComponent},
   {path: 'pacientes', component: PacientesComponent},
   {path: 'citas', component: CitasComponent},
+  {path: 'receta', component: RecetaComponent},
+  { path: '**', component: Page404Component }
 
 ];
 

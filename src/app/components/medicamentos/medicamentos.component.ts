@@ -48,6 +48,7 @@ export class MedicamentosComponent implements OnInit {
   acumulador: number
   filtros: string
   source2: MedicamentosInterface[];
+  
   constructor( 
     public medservice: InventarioService
     ){
@@ -69,6 +70,7 @@ export class MedicamentosComponent implements OnInit {
     else{
       event.confirm.reject();
     }
+    console.log(event)
    }
    deleteData(event){
     if (confirm('Seguro que desea borrar el medicamento: '+event.data.nombre+' ?'))

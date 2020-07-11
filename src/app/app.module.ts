@@ -32,6 +32,7 @@ import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { FlatpickrModule } from "angularx-flatpickr";
 import { OverlayModule } from '@angular/cdk/overlay';
+import { FilterModule } from 'ng2-smart-table/lib/components/filter/filter.module';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
   ],
   imports: [
     CommonModule,
+    
     NgbModalModule,
     FlatpickrModule.forRoot(),
     BrowserModule,
@@ -77,5 +79,6 @@ import { OverlayModule } from '@angular/cdk/overlay';
   ],
   entryComponents:[DateEditorComponent,PrecioEditorComponent,StockEditorComponent,skuEditorComponent ],
   bootstrap: [AppComponent]
+  
 })
 export class AppModule { }
