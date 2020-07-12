@@ -1,10 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
-import { StringMap } from '@angular/compiler/src/compiler_facade_interface';
 import { LocalDataSource, DefaultEditor, Ng2SmartTableComponent } from 'ng2-smart-table';
 import { InventarioService } from 'src/app/services/inventario.service';
 import { NgbModal, NgbModalConfig, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-import { NgModel } from '@angular/forms';
-import { FilterDefault } from 'ng2-smart-table/lib/components/filter/filter-default';
 import { DateEditorComponent, PrecioEditorComponent, skuEditorComponent, StockEditorComponent } from "../medicamentos/medicamentos.component";
 import * as jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -17,6 +14,7 @@ import { PacienteInterface } from 'src/app/interfaces/paciente';
 import { take } from 'rxjs/operators';
 import { RegistroInterface } from 'src/app/interfaces/registro';
 import { AuthService } from 'src/app/services/auth.service';
+import { Router } from '@angular/router';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 @Component({
   selector: 'app-receta',
@@ -36,6 +34,7 @@ export class RecetaComponent implements OnInit {
   alergias: string;
   sintomas: string;
   contador: number;
+  modaldata:any
   contadorp: number;
   visiblepdf: boolean
   visiblelogo:boolean
@@ -49,7 +48,7 @@ export class RecetaComponent implements OnInit {
   cedula: string;
   clinica: string;
   fechaactual: string;
-  historial: any[]
+  historialdata: any
   elements: any = [
     {Nombre: '',Compuesto:'',Presetacion:'',Dosis:'',Frecuencia:'', Dias:''  }
   ];
@@ -112,7 +111,7 @@ export class RecetaComponent implements OnInit {
   constructor( 
    private medservice:InventarioService, private hservice:HistorialService,
    config: NgbModalConfig, private modalService: NgbModal, private afs: AngularFirestore,
-   private authService : AuthService
+   private authService : AuthService, private router: Router
    ) {
       var day = new Date().getDay()
       var dia = ['Lunes','Martes','Miercoles','Jueves','Viernes','Sabado','Domingo']
@@ -121,6 +120,7 @@ export class RecetaComponent implements OnInit {
       var mes = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre']
       var año = new Date().getFullYear();
       this.fechaactual = dia[day-1]+' '+ nday + ' de ' + mes[month]+ ' de '+ año; 
+      console.log(day)
       var randLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
       function randstr(prefix)
       {
@@ -138,8 +138,7 @@ export class RecetaComponent implements OnInit {
         this.authService.getUserData(user.email).subscribe((info:RegistroInterface) =>{
           this.medico = info.nombre+ ' ' + info.apaterno;
           this.cedula = info.cedula;
-          this.clinica = info.clinica
-          console.log(this.nombre)
+          this.clinica = info.clinica 
         })
       }
      })
@@ -160,7 +159,6 @@ onCustomAction(event) {
     else{
     this.contenededor[this.contador] = x;
     this.contenededor[this.contador].row = this.contador;
-    console.log(this.contenededor)
     this.sourcetable = this.contenededor as any;
     this.contador++;
     this.modalService.dismissAll()
@@ -174,7 +172,6 @@ onCustomAction(event) {
     else{
       this.contenededor[this.contador] = x;
       this.contenededor[this.contador].row = this.contador;
-    console.log(this.contenededor)
       this.sourcetable = this.contenededor as any;
       this.contador++;
       this.modalService.dismissAll()
@@ -188,11 +185,15 @@ add(){
   this.contadorp++;
   this.elements = this.prescripcion;
 }
-viewhistory(){
+gethistory(){
   this.hservice.getreceta(this.folio).subscribe( x => {
-    this.historial = x
+    this.historialdata = x
   })
-  console.log(this.historial)
+}
+viewhistory(modal, id){
+  this.modaldata = id
+  this.modalService.open(modal,{size: 'lg'})
+  console.log(this.historialdata)
 }
   ngOnInit(): void {
     this.medservice.getAll().subscribe(x=> this.source = x as any) 
@@ -326,7 +327,8 @@ viewhistory(){
     value.folio = this.folio
      console.log(value)
     this.generatePdf()
-    this.hservice.addcita(value)
+    this.hservice.addcita(value);
+    this.router.navigate(['/home'])
   }
   searchpaci(x){
     this.afs.collection('Pacientes').doc(x).valueChanges().pipe((take(1))).subscribe(querys => {
@@ -349,7 +351,7 @@ viewhistory(){
      this.contenededor.splice(index,1)
      this.sourcetable = new LocalDataSource( this.contenededor)
      this.contador--
-     //  event.confirm.resolve();
+     event.confirm.resolve();
     
     
   }

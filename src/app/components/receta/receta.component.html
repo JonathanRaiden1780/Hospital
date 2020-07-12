@@ -1,24 +1,32 @@
-<app-nav></app-nav>
+
 <div class="card col-md-fill mt-3 ml-2 text-white text-center form-inline" style="background-color: #1a3263"><i class="fa fa-user" class="fa-2x"></i><strong><h2>Receta Medica</h2></strong></div>
 <script src="print.js"></script>
 
 <!-- Llenado rapido-->
-<div class="card col-md-2 mt-3  text-white text-center form-inline" style="background-color: #1a3263"><strong><h5>BUSCAR PACIENTE</h5></strong></div>
-<div class="card col-md-2  mt-2">
-    <div class="form-group">
-      <h5><strong>FOLIO ASOCIADO</strong></h5>
-      <div class="input-group" >
-        <div class="input-group-prepend" data-html2canvas-ignore="true">
-          <div class="input-group-text"> <i class="fas fa-id-card	"></i></div>
-        </div>
-        <input style="border-top: white; border-right: white;"  type="text" class="form-control text-center"  style=" font-size: 1rem " name="curp" [(ngModel)]="folio" #folios="ngModel" id="folio" aria-describedby="folio" placeholder="198237821" >
-        <div class="input-group-prepend">
-            <div class="form-control"> <i class="fas fa-search"></i></div>
-        </div>
+<div class="card-group">
+  <div class="card col-md-2 mt-3  text-white text-center form-inline" style="background-color: #1a3263"><strong><h5>BUSCAR PACIENTE</h5></strong>
+    <div class="input-group" >
+      <div class="input-group-prepend" data-html2canvas-ignore="true">
+        <div class="input-group-text"> <i class="fas fa-id-card	"></i></div>
+      </div>
+      <input style="border-top: white; border-right: white; "  type="text" class="form-control text-center"  style=" font-size: 1rem " name="curp" [(ngModel)]="folio" #folios="ngModel" id="folio" aria-describedby="folio" placeholder="198237821" >
+      <div class="input-group-prepend">
+        <div class="form-control" (click)="searchpaci(folio);gethistory();"> <i class="fas fa-search"></i></div>
       </div>
     </div>
-    <button type="button" (click)="viewhistory()"> search</button>
+    <br>
+  </div>
+  <div class="card-header">
+    <h6>Consultas Realizadas: {{historialdata.length}} </h6>
+    <ul>
+        <li *ngFor="let receta of historialdata">
+          <button (click)="viewhistory(historial, receta);">{{ receta.fecha}}</button>
+        </li>
+    </ul>
+  </div>
+
 </div>
+
 <div #contentpdf id="contentpdf">
     <br><br><br>
     <div class="card-group" >
@@ -177,6 +185,110 @@
 
     <ng2-smart-table (deleteConfirm)="deleteData($event)" [settings]="tableconfi" [source]="sourcetable"></ng2-smart-table>
 </div>  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-secondary" (click)="close(); add();">
+      OK
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #historial let-close="close">
+  <div class="modal-header">
+    <h5 class="modal-title">Historial Clinico</h5>
+    <button type="button" class="close" (click)="close()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    {{modaldata.fecha}}
+    <div class="card-group">
+      <div class="card col-md3">
+        <h5><strong>Registro Vitales</strong></h5>
+        <label>Alergias: {{modaldata.alergias}}</label>
+        <label>Estatura: {{modaldata.alergias}} cm</label>
+        <label>Peso: {{modaldata.alergias}} kg</label>
+        <label>Ritmo cardiaco: {{modaldata.alergias}} ppm</label>
+        <label>Presión: {{modaldata.alergias}} mmhg</label>
+        <label>Ritmo Respiratorio: {{modaldata.alergias}} rrpm</label>
+        <label>Temperatura: {{modaldata.alergias}} °C</label>
+      </div>
+      <div class="card">
+        <h5><strong>Medico</strong></h5>
+        <label>Dr.: {{modaldata.medico}}</label>
+        <label>Clinica: {{modaldata.clinica}}</label>
+        <h5><strong>Receta Medica</strong></h5>
+        <label>Número de receta: {{modaldata.id}}</label>
+        <label>Diagnostico: {{modaldata.diagnostico}} </label>
+        <label>Prescripcion: {{modaldata.prescripcion}} </label>
+        <label>Indicaciones Adicionales: {{modaldata.adicional}} </label>
+      </div>
+    </div>
+   
+
+  </div>
+        <!-- <div class="card col-md-4" style="border-color: white;">
+              <label  f>Estatura</label>
+              <div class="input-group"  >
+                <div class="input-group-prepend" data-html2canvas-ignore="true">
+                  <div class="input-group-text">{{historialdata.estatura}}</div>
+                </div>
+                <div class="input-group-prepend">
+                  <div class="form-control" style="border: white;">CM</div>
+                </div>
+              </div>  
+              <label  f>Peso</label>
+              <div class="input-group" >
+                <div class="input-group-prepend" data-html2canvas-ignore="true">
+                  <div class="input-group-text">{{historialdata.peso}} </div>
+                </div>
+                <div class="input-group-prepend">
+                  <div class="form-control" style="border: white;">KG</div>
+                </div>
+              </div>
+              <label  f>Ritmo Cardiaco</label>
+              <div class="input-group" >
+                <div class="input-group-prepend" data-html2canvas-ignore="true">
+                  <div class="input-group-text">{{historialdata.ppm}} </div>
+                </div>
+                <div class="input-group-prepend">
+                  <div class="form-control" style="border: white;">PPM</div>
+                </div>
+              </div>  
+            </div>
+            <div class="col mx-auto">
+              <label  f>Presion Sanguinea</label>
+              <div class="input-group" >
+                <div class="input-group-prepend" data-html2canvas-ignore="true">
+                  <div class="input-group-text">{{historialdata.mmhg}} </div>
+                </div>
+                <div class="input-group-prepend">
+                  <div class="form-control" style="border: white;">MMHG</div>
+                </div>
+              </div>              
+              <label  f>Ritmo Respiratorio</label>
+              <div class="input-group" >
+                <div class="input-group-prepend" data-html2canvas-ignore="true">
+                  <div class="input-group-text"> {{historialdata.rrpm}}</div>
+                </div>
+                <div class="input-group-prepend">
+                  <div class="form-control" style="border: white;">RRPM</div>
+                </div>
+              </div>  
+              <label  f>Temperatura</label>
+              <div class="input-group" >
+                <div class="input-group-prepend" data-html2canvas-ignore="true">
+                  <div class="input-group-text"> <i class="fas fa-thermometer-half"></i></div>
+                </div>
+                <div class="input-group-prepend">
+                  <div class="form-control" style="border: white;">{{historialdata.temperatura}}</div>
+                </div>
+              </div>  
+            </div>
+          </div>
+        
+      </div>
+   -->
+  
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="close(); add();">
       OK
