@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { RegistroInterface } from 'src/app/interfaces/registro';
+import { el } from 'date-fns/locale';
 
 @Component({
   selector: 'app-registro',
@@ -22,7 +23,8 @@ export class RegistroComponent implements OnInit {
     public empleado: string;
     public clinica: string;
     public cedula: string;
-
+    public adminstrador: boolean;
+    public tipo: string;
   ngOnInit() {
   }
 
@@ -35,7 +37,11 @@ export class RegistroComponent implements OnInit {
   }
   guardarregistro({value}: {value: RegistroInterface}){
   //  let userID  = auth().currentUser!.uid;
-   
+   if(this.tipo == 'Administrador')
+   {
+     this.adminstrador = true;
+   }
+   else{ this.adminstrador = false}
     value.id = this.email;
     value.correo = this.email;
     value.nombre = this.nombre;
@@ -43,6 +49,7 @@ export class RegistroComponent implements OnInit {
     value.apaterno = this.apaterno;
     value.cedula = this.cedula;
     value.noempleado= this.empleado;
+    value.administrador = this.adminstrador
     value.clinica = this.clinica;
     this.authservice.addregistro(value);
   }

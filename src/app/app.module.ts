@@ -13,7 +13,7 @@ import { PacientesComponent } from './components/pacientes/pacientes.component';
 import { MedicamentosComponent, DateEditorComponent, PrecioEditorComponent, StockEditorComponent, skuEditorComponent } from './components/medicamentos/medicamentos.component';
 import { RecetaComponent } from './components/receta/receta.component';
 import { CitasComponent } from './components/citas/citas.component';
-
+import { FlashMessagesModule,FlashMessagesService } from "angular2-flash-messages";
 //Firebase
 import {AngularFireModule} from '@angular/fire';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
@@ -29,10 +29,11 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CommonModule } from '@angular/common';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { QRCodeModule } from "angularx-qrcode";
 import { FlatpickrModule } from "angularx-flatpickr";
 import { OverlayModule } from '@angular/cdk/overlay';
 import { FilterModule } from 'ng2-smart-table/lib/components/filter/filter.module';
+import { HistorialService } from './services/historial.service';
 
 
 @NgModule({
@@ -54,7 +55,7 @@ import { FilterModule } from 'ng2-smart-table/lib/components/filter/filter.modul
   ],
   imports: [
     CommonModule,
-    
+    QRCodeModule,
     NgbModalModule,
     FlatpickrModule.forRoot(),
     BrowserModule,
@@ -62,6 +63,7 @@ import { FilterModule } from 'ng2-smart-table/lib/components/filter/filter.modul
     AppRoutingModule,
     Ng2SmartTableModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    FlashMessagesModule,
     AngularFireDatabaseModule,
     FormsModule,
     BrowserAnimationsModule,
@@ -69,13 +71,16 @@ import { FilterModule } from 'ng2-smart-table/lib/components/filter/filter.modul
     NbLayoutModule,
     NbEvaIconsModule,
     OverlayModule,
+    
     NbIconModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],
   providers: [
     InventarioService,
     AuthGuard,
-    AuthService
+    AuthService,
+    FlashMessagesService,
+    HistorialService
   ],
   entryComponents:[DateEditorComponent,PrecioEditorComponent,StockEditorComponent,skuEditorComponent ],
   bootstrap: [AppComponent]

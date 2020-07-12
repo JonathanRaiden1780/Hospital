@@ -74,8 +74,21 @@ getAll(): Observable<PacienteInterface[]> {
   }));
   return this.pobject;
 }
-
-
+addcita(val){
+  this.afs.collection('Pacientes').doc(val.folio).collection('Recetas').doc(val.id).set(val)
+}
+getreceta(x): Observable<PacienteInterface[]> {
+  this.pobject = this.afs.collection('Pacientes').doc(x).collection('Recetas').snapshotChanges()
+  .pipe(map(changes => {
+    return changes.map(action => {
+      const data = action.payload.doc.data() as PacienteInterface;
+      
+      data.id = action.payload.doc.id;
+      return data;
+    });
+  }));
+  return this.pobject;
+}
 
 addnew(value){  
   var x = this.afs.collection('Pacientes')

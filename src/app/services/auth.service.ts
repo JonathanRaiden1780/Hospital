@@ -46,8 +46,8 @@ id: string;
       err => reject (err));
     });
   }
-  getAuth():boolean {
-    return this.user !=null;
+  getAuth() {
+    return this.afAuth.authState.pipe(map(auth => auth));
   }
   getid(): string {
     this.afAuth.onAuthStateChanged((user) => {
@@ -56,6 +56,9 @@ id: string;
       }
     });
     return this.id;
+  }
+  getUserData( data: any) {
+    return this.registroCollection.doc(data).valueChanges();
   }
   getcurrentUser(): Observable<firebase.User | null> {
     return this.user;

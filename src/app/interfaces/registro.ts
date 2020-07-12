@@ -7,4 +7,5 @@ export interface RegistroInterface {
     correo :string;
     clinica :string;
     cedula : string;
+    administrador: boolean
 }

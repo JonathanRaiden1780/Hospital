@@ -1,3 +1,45 @@
 <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #c0c9dbbb ;">
     <img src="https://i.ibb.co/9N0MgPB/logo.png" class="navbar-brand" alt="SIClogo" style="width: 15%;">
+    <div class="collapse navbar-collapse" *ngIf="status">
+        <ul class="navbar-nav" >
+        <li class="nav-item active">
+            <a class="nav-link" routerLink="active-link" routerLink="/home">
+            <i class="fas fa-house-user" style="color: black;"></i>
+            </a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" routerLink="active-link" routerLink="/citas">
+            <i class="fas fa-calendar-alt" style="color: black;"></i>
+            </a>
+        </li>
+         <li class="nav-item active" *ngIf="admin">
+            <a class="nav-link" routerLink="active-link" routerLink="/inventario">
+            <i class="fas fa-boxes" style="color: black;"></i>
+            </a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" routerLink="active-link" routerLink="/pacientes">
+            <i class="fab fa-accessible-icon" style="color: black;"></i>
+            </a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" routerLink="active-link" routerLink="/receta">
+            <i class="fa fa-list-alt" style="color: black;"></i>
+            </a>
+        </li>
+        <li class="nav-item active">
+            <a class="nav-link" routerLink="active-link" routerLink="/registro">
+            <i class="fas fa-user-cog" style="color: black;"></i>
+            </a>
+        </li>
+    </ul>
+    </div>
+    <ul class="navbar-nav" >
+        <li class="navbar-nav nav-item" *ngIf="status"  >
+            <a class="nav-link" (click)="onClickLogOut()" routerLinkActive="active-Link" routerLink="/login">
+                <i style="color: black;" class="fas fa-sign-out-alt"></i>
+                <strong style="color: black;">SALIR  </strong>
+            </a>
+        </li>
+    </ul>
 </nav>

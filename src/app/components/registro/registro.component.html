@@ -64,6 +64,17 @@
                           </div>
                           <input type="text" name="cedula" [(ngModel)]="cedula" [ngModelOptions]="{standalone:true}"  class="form-control"  placeholder="982130922">
                         </div>
+                         <p><strong>Tipo de Usuario</strong></p>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text" style="background-color: #f16821; color: white"><i class="fa fa-key"></i></span>
+                          </div>
+                          <select class="form-control" name="tipo" [(ngModel)]="tipo" #Tipo="ngModel">
+                            <option>Selecciona...</option>
+                              <option>Administrador</option>
+                              <option>Medico</option>
+                          </select>
+                        </div>
                       </div>
                     <button type="submit" value="Guardar" class="btn btn-warning text-center btn-block"><i class="fa fa-sign-in" class="fa-2x"></i><h6><strong>Registrar</strong></h6></button>
                 </form>
