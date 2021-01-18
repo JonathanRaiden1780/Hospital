@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { HistorialService } from 'src/app/services/historial.service';

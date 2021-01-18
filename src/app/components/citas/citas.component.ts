@@ -96,10 +96,11 @@ export class CitasComponent {
         colfb: x[i].color
       };
       var startfb = new Date(x[i].fecha)
+      const details = x[i].detalles
       var datapaciente: CalendarEvent []= [
         {
           start: startfb,
-          detalles: x[i].detalles,
+          detalles: details,
           end: startfb,
           title: x[i].title,
           color: coloress.colfb,
@@ -115,6 +116,8 @@ export class CitasComponent {
       this.events[i]=  datapaciente[0]
       this.refresh.next()
      }
+     console.log(x)
+     console.log(this.events)
     }
   
     dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -152,6 +155,7 @@ export class CitasComponent {
     handleEvent(action: string, event: CalendarEvent): void {
       var fecha = event.start.toString()
       var fech :string  = fecha.slice(0,24)
+
       var detalles : string = event.detalles
       this.modalData = { event, action, fech, detalles };
       this.modal.open(this.modalContent, { size: 'lg' });
