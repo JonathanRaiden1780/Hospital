@@ -59,7 +59,7 @@
               <div class="input-group-text"> <i class="fas fa-head-side-virus	"></i></div>
             </div>
               <input style="border-top: white; border-right: white; text-transform: capitalize;" type="text" class="form-control"  placeholder="" name="alergias" [(ngModel)]="alergias" #alergia="ngModel" required>
-          </div>  
+          </div>
     <div class="form-row ">
         <div class="col mx-auto">
           <label  f>Estatura</label>
@@ -71,7 +71,7 @@
             <div class="input-group-prepend">
                 <div class="form-control" style="border: white;">CM</div>
             </div>
-          </div>  
+          </div>
           <label  f>Peso</label>
           <div class="input-group" >
             <div class="input-group-prepend" data-html2canvas-ignore="true">
@@ -87,11 +87,11 @@
             <div class="input-group-prepend" data-html2canvas-ignore="true">
               <div class="input-group-text"> <i class="fa fa-heartbeat"></i></div>
             </div>
-            <input style="border-top: white; border-right: white;"  type="text" class="form-control"  placeholder="ppm" name="rpm" [(ngModel)]="rpm" #rpms="ngModel" required>            
+            <input style="border-top: white; border-right: white;"  type="text" class="form-control"  placeholder="ppm" name="rpm" [(ngModel)]="rpm" #rpms="ngModel" required>
             <div class="input-group-prepend">
                 <div class="form-control" style="border: white;">PPM</div>
             </div>
-          </div>  
+          </div>
         </div>
         <div class="col mx-auto">
           <label  f>Presion Sanguinea</label>
@@ -103,7 +103,7 @@
             <div class="input-group-prepend">
                 <div class="form-control" style="border: white;">MMHG</div>
             </div>
-          </div>              
+          </div>
           <label  f>Ritmo Respiratorio</label>
           <div class="input-group" >
             <div class="input-group-prepend" data-html2canvas-ignore="true">
@@ -113,7 +113,7 @@
             <div class="input-group-prepend">
                 <div class="form-control" style="border: white;">RRPM</div>
             </div>
-           </div>  
+           </div>
            <label  f>Temperatura</label>
           <div class="input-group" >
             <div class="input-group-prepend" data-html2canvas-ignore="true">
@@ -123,8 +123,8 @@
             <div class="input-group-prepend">
                 <div class="form-control" style="border: white;">°C</div>
             </div>
-           </div>  
-          
+           </div>
+
         </div>
     </div>
     </div>
@@ -142,16 +142,16 @@
                     <div (click)="query(addnew)"> <i style="color: green;" class="fas fa-plus-square fa-s"></i></div>
                 </div>
                 <br>
-                
+
             </div>
             <table mdbTable hover="true" >
                 <tbody *ngIf="lleno">
                   <tr mdbTableCol *ngFor="let el of elements" >
-                    <td><h5>------</h5></td>  
+                    <td><h5>------</h5></td>
                     <td><h5>{{el}} </h5></td>
                   </tr>
                 </tbody>
-              </table> 
+              </table>
               <br>
               <br>
             <h4 class="text-center">Indicaciones Adicionales</h4>
@@ -160,7 +160,7 @@
         </div>
     </div>
 </div>
-<div  class="card row" style="border: white;">  
+<div  class="card row" style="border: white;">
 <br>
 </div>
   <qrcode  [qrdata]= 'idunique' [width]="5" [errorCorrectionLevel]="'M'"></qrcode>
@@ -184,7 +184,7 @@
     <ng2-smart-table  (custom)="onCustomAction($event)"   [settings]="tableset" [source]="source"></ng2-smart-table>
 
     <ng2-smart-table (deleteConfirm)="deleteData($event)" [settings]="tableconfi" [source]="sourcetable"></ng2-smart-table>
-</div>  
+</div>
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="close(); add();">
       OK
@@ -205,12 +205,12 @@
       <div class="card col-md3">
         <h5><strong>Registro Vitales</strong></h5>
         <label>Alergias: {{modaldata.alergias}}</label>
-        <label>Estatura: {{modaldata.alergias}} cm</label>
-        <label>Peso: {{modaldata.alergias}} kg</label>
-        <label>Ritmo cardiaco: {{modaldata.alergias}} ppm</label>
-        <label>Presión: {{modaldata.alergias}} mmhg</label>
-        <label>Ritmo Respiratorio: {{modaldata.alergias}} rrpm</label>
-        <label>Temperatura: {{modaldata.alergias}} °C</label>
+        <label>Estatura: {{modaldata.estatura}} cm</label>
+        <label>Peso: {{modaldata.peso}} kg</label>
+        <label>Ritmo cardiaco: {{modaldata.ppm}} ppm</label>
+        <label>Presión: {{modaldata.mmhg}} mmhg</label>
+        <label>Ritmo Respiratorio: {{modaldata.rrpm}} rrpm</label>
+        <label>Temperatura: {{modaldata.temperatura}} °C</label>
       </div>
       <div class="card">
         <h5><strong>Medico</strong></h5>
@@ -223,7 +223,7 @@
         <label>Indicaciones Adicionales: {{modaldata.adicional}} </label>
       </div>
     </div>
-   
+
 
   </div>
         <!-- <div class="card col-md-4" style="border-color: white;">
@@ -235,7 +235,7 @@
                 <div class="input-group-prepend">
                   <div class="form-control" style="border: white;">CM</div>
                 </div>
-              </div>  
+              </div>
               <label  f>Peso</label>
               <div class="input-group" >
                 <div class="input-group-prepend" data-html2canvas-ignore="true">
@@ -253,7 +253,7 @@
                 <div class="input-group-prepend">
                   <div class="form-control" style="border: white;">PPM</div>
                 </div>
-              </div>  
+              </div>
             </div>
             <div class="col mx-auto">
               <label  f>Presion Sanguinea</label>
@@ -264,7 +264,7 @@
                 <div class="input-group-prepend">
                   <div class="form-control" style="border: white;">MMHG</div>
                 </div>
-              </div>              
+              </div>
               <label  f>Ritmo Respiratorio</label>
               <div class="input-group" >
                 <div class="input-group-prepend" data-html2canvas-ignore="true">
@@ -273,7 +273,7 @@
                 <div class="input-group-prepend">
                   <div class="form-control" style="border: white;">RRPM</div>
                 </div>
-              </div>  
+              </div>
               <label  f>Temperatura</label>
               <div class="input-group" >
                 <div class="input-group-prepend" data-html2canvas-ignore="true">
@@ -282,13 +282,13 @@
                 <div class="input-group-prepend">
                   <div class="form-control" style="border: white;">{{historialdata.temperatura}}</div>
                 </div>
-              </div>  
+              </div>
             </div>
           </div>
-        
+
       </div>
    -->
-  
+
   <div class="modal-footer">
     <button type="button" class="btn btn-outline-secondary" (click)="close(); add();">
       OK
